@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.w-400 {
+  width: 400px;
+}
+
+.bgc {
+  background: linear-gradient(#6eac00, #e3ffb4);
+}
+
+.color1 {
+  background-color: #6eac00;
+}
+
+.color2 {
+  background-color: #e3ffb4;
+}
+
+.goid {
+}
+.goid-item {
+}
