@@ -38,7 +38,7 @@ public class PostServiceImpl implements PostService {
 			return new NewPostRes(RtnCode.DATA_ERROR.getCode(), RtnCode.DATA_ERROR.getMessage());
 		}
 		// 存檔位置
-		String address = "C:/Users/minic/OneDrive/Desktop/JAVA/javaproject/Piece/img/";
+		String address = "C:/Users/minic/OneDrive/Desktop/PieceProject/Piece/img";
 		// 新增至資料庫 取得自動增長ID
 		Pic res = picDao.save(new Pic(address));
 		// 更新資料庫
