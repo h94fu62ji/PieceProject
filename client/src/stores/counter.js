@@ -10,6 +10,7 @@ export default defineStore("postStore",{
     user:10000001,
     postView: false,
     newPostView: false,
+    login: false,
 
   }),
   // computed 顯示在畫面上的臨時變數

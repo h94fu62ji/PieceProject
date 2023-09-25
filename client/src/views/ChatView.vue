@@ -90,7 +90,8 @@ export default {
 
     },
     sendMessage() {
-      if (this.newMsg === null || this.newMsg == "") {
+      const reg = /^[ \t\n\r]+$/;
+      if (this.newMsg === null || this.newMsg == "" || reg.test(this.newMsg)) {
         alert("請輸入訊息！");
         return;
       }
@@ -104,7 +105,7 @@ export default {
       this.stompClient.send(`/app/chat/${this.currentChatroomId}`, {}, JSON.stringify(message));
 
       //送出訊息後清空輸入框
-      this.newMsg = "";
+      this.newMsg = null;
       this.isEmojiModalShow = false;
 
     },

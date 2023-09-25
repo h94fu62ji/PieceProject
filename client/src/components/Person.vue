@@ -1,4 +1,7 @@
 <script>
+//pinia
+import { mapActions, mapState } from 'pinia'
+import indexStore from '../stores/counter'
 export default {
     data() {
         return {
@@ -6,15 +9,43 @@ export default {
 
         }
     },
+    computed: {
+        // 參數 資料庫 要取用的 state / getters
+        ...mapState(indexStore, ['URL', 'user',]),
+    },
     methods: {
+        // 參數 資料庫 要取用的 actions(methods)
+        ...mapActions(indexStore, []),
         closePerson() {
             this.$parent.switchPerson()
         },
         openSetBar() {
             this.$parent.switchSetBar()
         },
-    },
 
+        getImgByIdForUser(imgId) { // 找圖片User
+            const getImgId = {
+                "imgId": imgId,
+            };
+            // console.log(JSON.stringify(getImgId))
+            fetch(this.URL + "get_pic_by_img_id", { // 發送網址
+                method: "POST", // 請求型態
+                headers: { // 必要文件
+                    'Content-Type': 'application/json'
+                },
+                // 轉成JSON
+                body: JSON.stringify(getImgId) // 要傳送的資料
+            })
+                .then(res => res.json()) // 回傳資料轉成可讀取
+                .then(data => {
+                    // console.log(data);
+                    this.userImg = data.img64
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
+        },
+    }
 }
 </script>
 
@@ -24,7 +55,7 @@ export default {
         <!-- 背景 -->
         <div class="absolute h-full w-400 bgc overflow-y-auto top-0 left-0" style="width: 415px;">
             <!-- 至中用 -->
-            <div class="w80 ml-10">
+            <div class="ml-10">
                 <!-- 上方功能區 -->
                 <div class="w-80 h-16 my-6 flex justify-between">
                     <div class="w-16 h-16 bg-white cursor-pointer" @click="closePerson"></div>

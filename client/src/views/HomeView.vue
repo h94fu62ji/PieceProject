@@ -10,6 +10,8 @@ export default {
     Box,
   },
   beforeMount() {
+    this.logincheck()
+
     // 載入貼文ID
     this.getPostList()
   },
@@ -26,7 +28,7 @@ export default {
   },
   computed: {
     // 參數 資料庫 要取用的 state / getters
-    ...mapState(indexStore, ['URL', 'postView', 'items', 'user', 'postIdList']),
+    ...mapState(indexStore, ['URL', 'postView', 'user', 'postIdList', 'login']),
   },
   methods: {
     // 參數 資料庫 要取用的 actions(methods)
@@ -67,7 +69,12 @@ export default {
         columnWidth: 450,
       });
       msnry.layout();
-    }
+    },
+    logincheck() {
+      if (!this.login) {
+        this.$router.push("/login");
+      }
+    },
   },
 }
 

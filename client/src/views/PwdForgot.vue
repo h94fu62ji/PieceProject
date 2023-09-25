@@ -5,11 +5,11 @@ export default {
 </script>
 
 <template>
-    <div>
+    <div class="h-screen w-screen flex justify-center items-center">
         <!-- main -->
-        <div class="main absolute">
+        <div class="z-10">
             <!-- LOGO -->
-            <div class="pt-32 flex justify-center items-center">
+            <div class="flex justify-center items-center">
 
                 <img class="flex w-32 h-32" src="../../public/logo.png" alt="">
 
@@ -59,7 +59,7 @@ export default {
 
         </div>
         <!-- 背景 -->
-        <div class="backk">
+        <div class="backk absolute top-0 left-0">
         </div>
     </div>
 </template>
@@ -70,9 +70,5 @@ export default {
     width: 100vw;
     height: 100vh;
 
-}
-
-.main {
-    margin-left: 30%;
 }
 </style>

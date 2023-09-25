@@ -3,7 +3,6 @@ import { RouterLink, RouterView } from 'vue-router'
 import Person from './components/Person.vue';
 import HomeBar from './components/HomeBar.vue';
 import SetBar from './components/SetBar.vue';
-import FriendBar from './components/FriendBar.vue';
 import SearchBar from './components/SearchBar.vue';
 import NewsBar from './components/NewsBar.vue';
 import Post from './components/Post.vue';
@@ -19,7 +18,6 @@ export default {
     Person,
     HomeBar,
     SetBar,
-    FriendBar,
     SearchBar,
     NewsBar,
     Post,
@@ -34,12 +32,11 @@ export default {
       chatListView: false,
       searchBarView: false,
       newsBarView: false,
-      login: true,
     }
   },
   computed: {
     // 參數 資料庫 要取用的 state / getters
-    ...mapState(indexStore, ['postView', 'newPostView']),
+    ...mapState(indexStore, ['postView', 'newPostView', 'login']),
   },
   methods: {
     // 參數 資料庫 要取用的 actions(methods)
@@ -73,7 +70,7 @@ export default {
   <SetBar :class="{ hideBar: !setBarView, showBar: setBarView }" @click="switchSetBar" />
   <ChatList :class="{ hideBar: !chatListView, showBar: chatListView }" />
   <div v-if="login" class="fakediv!! w-400 bg-slate-100 h-screen flex-shrink-0"></div>
-  <RouterView class="flex-grow" :currentUserId="currentUserId" />
+  <RouterView class="flex-grow" :currentUserId="currentUserId" :key="$route.fullPath" />
   <div
     class="w-20 h-20 rounded-full cursor-pointer select-none bg-cyan-500 fixed bottom-10 right-10 text-center text-6xl pt-1 text-white shadow-2xl shadow-gray-700 "
     @click="switchNewPost">+</div>

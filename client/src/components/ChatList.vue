@@ -105,28 +105,30 @@ export default {
 
 <template>
     <div class="w-400 fixed h-screen bgc">
-        <div class="my-4">
-            <div class="w-16 h-16 bg-white ml-4" @click="closeChatList"></div>
+        <div class="w-80 mx-auto">
+            <div class="my-4">
+                <div class="w-16 h-16 bg-white " @click="closeChatList"></div>
+            </div>
+            <RouterLink @click.stop :to="`/chat/${msg.chatroomId}`" v-for="msg in lastMsgList"
+                class="flex bg-gray-100 py-2 rounded-2xl items-center mb-4 cursor-pointer">
+                <div class="icon bg-green-200 h-12 w-12 mx-2">
+                </div>
+                <div class="name-and-last-msg">
+                    <p v-if="msg.sender == user" class="font-bold text-green-800">
+                        {{ msg.reciever }}
+                    </p>
+                    <p v-if="msg.sender != user" class="font-bold text-green-800">
+                        {{ msg.sender }}
+                    </p>
+                    <p class="text-gray-500 text-xs leading-3">
+                        {{ msg.messageContent }}
+                    </p>
+                    <small class="text-gray-400 text-xs">
+                        {{ timeFormatter(msg.datetime) }}
+                    </small>
+                </div>
+            </RouterLink>
         </div>
-        <RouterLink @click.stop :to="`/chat/${msg.chatroomId}`" v-for="msg in lastMsgList"
-            class="flex bg-gray-100 py-2 rounded-lg items-center mb-4 cursor-pointer">
-            <div class="icon bg-green-200 h-12 w-12 mx-2">
-            </div>
-            <div class="name-and-last-msg">
-                <p v-if="msg.sender == user" class="font-bold text-green-800">
-                    {{ msg.reciever }}
-                </p>
-                <p v-if="msg.sender != user" class="font-bold text-green-800">
-                    {{ msg.sender }}
-                </p>
-                <p class="text-gray-500 text-xs leading-3">
-                    {{ msg.messageContent }}
-                </p>
-                <small class="text-gray-400 text-xs">
-                    {{ timeFormatter(msg.datetime) }}
-                </small>
-            </div>
-        </RouterLink>
     </div>
 </template>
 
