@@ -6,7 +6,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: () => import('../views/HomeView.vue')
+      component: () => import('../views/HomeView.vue'),
     },
     {
       path: '/chat/:currentChatroomId',
@@ -14,7 +14,26 @@ const router = createRouter({
       component: () => import('../views/ChatView.vue'),
       props:true,
     },  
-
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('../views/LogInView.vue'),
+    },
+    {
+      path: '/signup',
+      name: 'signup',
+      component: () => import('../views/SignUpView.vue'),
+    },
+    {
+      path: '/pwdforgot',
+      name: 'pwdforgot',
+      component: () => import('../views/PwdForgot.vue'),
+    },
+    {
+      path: '/pwdnew',
+      name: 'pwdnew',
+      component: () => import('../views/PwdNew.vue'),
+    },
   ]
 })
 

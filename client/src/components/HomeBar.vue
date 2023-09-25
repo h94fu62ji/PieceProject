@@ -29,8 +29,8 @@ export default {
         SearchBar() {
             this.$parent.switchSearchBar()
         },
-        FriendBar() {
-            this.$parent.switchFriendBar()
+        ChatList() {
+            this.$parent.switchChatList()
         },
         NewsBar() {
             this.$parent.switchNewsBar()
@@ -74,7 +74,7 @@ export default {
         <div class="mx-auto w-400">
             <div class="btn" @click="PersonBar">個人頁面</div>
             <div class="btn" @click="SearchBar">搜尋</div>
-            <div class="btn" @click="FriendBar">訊息</div>
+            <div class="btn" @click="ChatList">訊息</div>
             <div class="btn" @click="NewsBar">消息</div>
         </div>
         <!-- <div class="mx-auto w-400">

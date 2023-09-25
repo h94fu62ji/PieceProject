@@ -34,11 +34,11 @@ export default {
       isEmojiModalShow: false,
 
       isCanRead: true,
-      currentChatroomId: 40000000,
+      // currentChatroomId: 40000001,
     }
   },
   props: [
-    // "currentChatroomId",//用router把聊天室id給prop進來
+    "currentChatroomId",//用router把聊天室id給prop進來
   ],
   watch: {
 
@@ -218,15 +218,22 @@ export default {
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <div style="width:100% ;height: 100vh;">
-    <div v-if="isCanRead" class="mx-20 my-10 rounded-2xl overflow-hidden" style=" background-color: #DFDFDF;">
+  <div class="p-4" style="width:100% ;height: 100vh;">
+    <div v-if="isCanRead" class="mx-20  rounded-2xl overflow-auto" style=" background-color: #DFDFDF;">
       <div class="header flex" style="padding: 10px 10%; background-color: #C9FF84;">
         <!-- 這裡之後要放對方的頭貼 -->
         <div class="w-20 h-20 bg-white rounded-xl">userPic</div>
         <h2 class="text-3xl font-bold ml-4 mt-4 ">{{ reciever }}</h2>
       </div>
 
-      <div class="msgs flex flex-col justify-end overflow-y-scroll" id="msgs" style="padding: 0 10%;">
+      <div class="msgs flex flex-col mt-auto overflow-y-scroll" id="msgs" style="padding: 0 10%;">
+        <div class="flex flex-col justify-center items-center flex-grow">
+          <h2 class="text-2xl">{{ reciever }}</h2>
+          <div class="bg-white w-24 h-24 my-2">
+
+          </div>
+          <p class="text-center">你現在可以傳訊息給{{ reciever }}。</p>
+        </div>
         <div class="" :key="message.messageId" v-for="message in messages">
           <div :class="{ 'justify-end': message.sender == user, 'justify-start': message.sender != user, }"
             class="msg-content flex items-center my-2">
@@ -278,16 +285,16 @@ export default {
 <style lang="scss" scoped>
 .msgs {
   height: 70vh;
-  overflow-y: scroll;
 
   &::-webkit-scrollbar {
-    margin-left: 10px;
-    width: 5px;
+
+    width: 8px;
     border-radius: 4px;
+    overflow: auto;
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: rgb(205, 241, 205);
+    background-color: rgb(135, 190, 135);
     transition: .3s;
     border-radius: 3px;
   }

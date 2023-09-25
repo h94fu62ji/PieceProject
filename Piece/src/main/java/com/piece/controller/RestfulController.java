@@ -32,7 +32,7 @@ public class RestfulController {
 	private MessageDao messageDao;
 
 	@GetMapping("/chatAll")
-	public ChatroomRes getAllChatroom(@RequestParam String currentUserId) {
+	public ChatroomRes getAllChatroom(@RequestParam int currentUserId) {
 		List<Chatroom> res = chatroomDao.findByUser1OrUser2(currentUserId);
 
 		if (res.size() == 0) {

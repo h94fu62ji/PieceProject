@@ -8,6 +8,7 @@ import SearchBar from './components/SearchBar.vue';
 import NewsBar from './components/NewsBar.vue';
 import Post from './components/Post.vue';
 import NewPost from './components/NewPost.vue'
+import ChatList from './components/ChatList.vue';
 //pinia
 import { mapActions, mapState } from 'pinia'
 import indexStore from './stores/counter'
@@ -23,15 +24,17 @@ export default {
     NewsBar,
     Post,
     NewPost,
+    ChatList,
     RouterView
   },
   data() {
     return {
       personView: false,
       setBarView: false,
-      friendBarView: false,
+      chatListView: false,
       searchBarView: false,
       newsBarView: false,
+      login: true,
     }
   },
   computed: {
@@ -47,8 +50,8 @@ export default {
     switchSetBar() {
       this.setBarView = !this.setBarView
     },
-    switchFriendBar() {
-      this.friendBarView = !this.friendBarView
+    switchChatList() {
+      this.chatListView = !this.chatListView
     },
     switchSearchBar() {
       this.searchBarView = !this.searchBarView
@@ -62,19 +65,19 @@ export default {
 </script>
 
 <template>
-  <!-- <HomeBar />
-  <FriendBar :class="{ hideBar: !friendBarView, showBar: friendBarView }" @click="switchFriendBar" />
+  <HomeBar v-if="login" />
   <SearchBar :class="{ hideBar: !searchBarView, showBar: searchBarView }" @click="switchSearchBar" />
   <NewsBar :class="{ hideBar: !newsBarView, showBar: newsBarView }" @click="switchNewsBar" />
   <Post v-if="postView" style="z-index: 10;" />
   <Person :class="{ hideBar: !personView, showBar: personView }" />
-  <SetBar :class="{ hideBar: !setBarView, showBar: setBarView }" @click="switchSetBar" /> -->
-  <div class="fakediv!! w-400 bg-slate-100 h-screen flex-shrink-0"></div>
-  <RouterView class="flex-grow" />
-  <NewPost v-if="newPostView" />
+  <SetBar :class="{ hideBar: !setBarView, showBar: setBarView }" @click="switchSetBar" />
+  <ChatList :class="{ hideBar: !chatListView, showBar: chatListView }" />
+  <div v-if="login" class="fakediv!! w-400 bg-slate-100 h-screen flex-shrink-0"></div>
+  <RouterView class="flex-grow" :currentUserId="currentUserId" />
   <div
-    class="w-20 h-20 rounded-full cursor-pointer select-none bg-cyan-500 fixed bottom-10 right-10 text-center text-6xl pt-1 text-white z-50 shadow-2xl shadow-gray-700 "
+    class="w-20 h-20 rounded-full cursor-pointer select-none bg-cyan-500 fixed bottom-10 right-10 text-center text-6xl pt-1 text-white shadow-2xl shadow-gray-700 "
     @click="switchNewPost">+</div>
+  <NewPost v-if="newPostView" />
 </template>
 
 <style scoped>
