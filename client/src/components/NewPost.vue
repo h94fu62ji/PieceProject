@@ -63,7 +63,7 @@ export default {
         <div class="bg-lime-200 rounded-3xl" @click.stop>
             <div class="m-10">
                 <h1 class="text-2xl">新增貼文</h1>
-                <textarea class="w-96 my-8"
+                <textarea class="w-96 my-8 rounded-2xl px-2 pt-1 min-h-[100px] max-h-[500px]"
                     style="min-height: 100px; max-height: 500px; height: auto; display: block; resize: none; outline: none; border : 0;"
                     v-model="text"></textarea>
                 <label for="newfile">
@@ -74,8 +74,8 @@ export default {
                 </label>
                 <input id="newfile" type="file" @change="updateImg" class="hidden">
                 <!-- <img :src="img" alt="NO"> -->
-                <button type="button" class="w-40 h-12 hover:bg-slate-400 bg-white block mx-auto mt-8 rounded-xl"
-                    @click="closeNewPost(), updateNewPost()">發布</button>
+                <button type="button" class="w-full h-12 hover:bg-slate-400 bg-white block mx-auto mt-8 rounded-2xl"
+                    @click="closeNewPost(), updateNewPost()">發 布</button>
                 <!-- <p>{{ text }}</p> -->
             </div>
         </div>
@@ -84,12 +84,6 @@ export default {
 
 
 <style scoped>
-textarea {
-    height: auto;
-    min-height: 100px;
-    max-height: 500px;
-}
-
 .screen {
     position: fixed;
     width: 100vw;

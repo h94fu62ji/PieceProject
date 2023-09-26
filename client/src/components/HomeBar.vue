@@ -72,14 +72,17 @@ export default {
         </RouterLink>
         <!-- <div class="fake!!"></div> -->
         <div class="mx-auto w-400">
+            <RouterLink to="/">
+                <div class="btn">主頁</div>
+            </RouterLink>
             <div class="btn" @click="homeBar">個人頁面</div>
             <div class="btn" @click="SearchBar">搜尋</div>
             <div class="btn" @click="ChatList">訊息</div>
             <div class="btn" @click="NewsBar">消息</div>
-        </div>
-        <!-- <div class="mx-auto w-400">
             <div class="btn">設定</div>
-        </div> -->
+
+        </div>
+
     </div>
 </template>
 
