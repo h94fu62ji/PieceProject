@@ -1,10 +1,51 @@
 <script>
+//pinia
+import { mapActions, mapState } from 'pinia'
+import indexStore from '../stores/counter'
 export default {
+  data() {
+    return {
+      postImg: null,
+    }
+  },
+  beforeMount() {
+    this.getImgById(10000000)
+  },
+  computed: {
+    // 參數 資料庫 要取用的 state / getters
+    ...mapState(indexStore, ['URL']),
+  },
+
   methods: {
+    // 參數 資料庫 要取用的 actions(methods)
+    ...mapActions(indexStore, []),
     // 判定關閉視窗位置
     closePost() {
       this.$parent.switchPost()
-    }
+    },
+    getImgById(imgId) { // 找圖片
+      const getImgId = {
+        "id": imgId,
+      };
+      // console.log(JSON.stringify(getImgId))
+      fetch(this.URL + "get_pic_by_img_id", { // 發送網址
+        method: "POST", // 請求型態
+        headers: { // 必要文件
+          'Content-Type': 'application/json'
+        },
+        // 轉成JSON
+        body: JSON.stringify(getImgId) // 要傳送的資料
+      })
+        .then(res => res.json()) // 回傳資料轉成可讀取
+        .then(data => {
+          // console.log(data);
+          this.postImg = data.img64
+        })
+        .catch(error => {
+          console.error("Error:", error);
+        });
+
+    },
   }
 }
 </script>
@@ -16,7 +57,7 @@ export default {
     <div class="w-[80%] h-[80%] bg-lime-200 rounded-3xl flex p-6" @click.stop>
       <!-- 照片 -->
       <div class="flex-grow h-[100%] bg-black rounded-2xl overflow-hidden">
-        <img src="">
+        <img :src="postImg">
       </div>
       <!-- 貼文區 -->
       <div class="flex-grow-0 w-[350px] ml-6  rounded-2xl  overflow-hidden">

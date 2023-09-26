@@ -76,7 +76,7 @@ export default {
   <Post v-if="postView" style="z-index: 10;" />
   <SetBar :class="{ hideBar: !setBarView, showBar: setBarView }" @click="switchSetBar" />
   <ChatList :class="{ hideBar: !chatListView, showBar: chatListView }" :key="$route.fullPath" />
-  <RouterView class="flex-grow" :currentUserId="currentUserId" :key="$route.fullPath" />
+  <RouterView class="flex-grow" :key="$route.fullPath" />
   <div
     class="w-20 h-20 rounded-full cursor-pointer select-none bg-cyan-500 fixed bottom-10 right-10 text-center text-6xl pt-1 text-white shadow-2xl shadow-gray-700 "
     @click="switchNewPost">+</div>

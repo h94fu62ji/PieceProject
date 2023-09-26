@@ -27,7 +27,7 @@ export default {
     },
     computed: {
         // 參數 資料庫 要取用的 state / getters
-        ...mapState(indexStore, ['URL',]),
+        ...mapState(indexStore, ['URL']),
     },
     methods: {
         // 參數 資料庫 要取用的 actions(methods)

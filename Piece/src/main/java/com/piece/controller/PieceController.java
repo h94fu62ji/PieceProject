@@ -22,8 +22,7 @@ import com.piece.vo.NewPostRes;
 public class PieceController {
 	@Autowired
 	private PostService postService;
-	@Autowired
-	private UserDataDao userDataDao;
+
 
 	@PostMapping(value = "/new_post")
 	public NewPostRes newPost(@RequestBody NewPostReq req) {
