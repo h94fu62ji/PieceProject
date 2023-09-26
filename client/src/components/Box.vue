@@ -19,6 +19,7 @@ export default {
   },
   beforeMount() {
     this.getPostById()
+
   },
   updated() {
     imagesloaded('img', () => { // 圖片加載確認
@@ -35,10 +36,6 @@ export default {
 
     openPost(e) {
       this.$parent.switchPost()
-    },
-
-    getPostId() {
-      console.log(this.postId)
     },
 
     getPostById() {  // 找貼文
@@ -143,7 +140,7 @@ export default {
     </div>
     <!-- 反黑 -->
     <div class="show bg-gray-700 opacity-80 absolute top-0 left-0 z-0 hidden" style="width: 450px; height: 100%;"
-      @click="openPost(), getPostId()">
+      @click="openPost()">
       <div>
 
         <p class="absolute bottom-24 left-6 text-white font-bold select-none">按讚人數 {{ up }}</p>

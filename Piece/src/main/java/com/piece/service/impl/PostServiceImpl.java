@@ -146,9 +146,9 @@ public class PostServiceImpl implements PostService {
 		if (userId == 0) {
 			return new GetTrackRes(RtnCode.DATA_ERROR.getCode(), RtnCode.DATA_ERROR.getMessage());
 		}
-		int trackMe = userDataDao.getTrackMeCount(userId);
 		int track = userDataDao.getTrackCount(userId);
-		return new GetTrackRes(RtnCode.SUCCESSFUL.getCode(), RtnCode.SUCCESSFUL.getMessage(), trackMe, track);
+		int fans = userDataDao.getFansCount(userId);
+		return new GetTrackRes(RtnCode.SUCCESSFUL.getCode(), RtnCode.SUCCESSFUL.getMessage(), track, fans);
 	}
 
 

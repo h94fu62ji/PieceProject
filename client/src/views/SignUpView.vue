@@ -6,68 +6,47 @@ export default {
     name: "SignUp",
 
     methods: {
-        // getData() {
-        //     axios
-        //         .get('http://localhost:8080/api')
-        //         .then((response) => {
-        //             console.log(response)
-        //         })
-        //         .catch((error) => {
-        //             console.log(error)
-        //         })
-        // },
-        save() {
-            if (this.user.account == "") {
-                console.log("請輸入帳號")
-                this.active.account = true
-                return
-            } else {
-                this.active.account = false
-            }
-            if (this.user.password == "") {
-                console.log("請輸入密碼")
-                this.active.password = true
-                return
-            } else {
-                this.active.password = false
-            }
-            if (this.user.confirm == "") {
-                console.log("請輸入密碼")
-                this.active.confirm = true
-                return
-            } else {
-                this.active.confirm = false
-            }
-            console.log(this.user)
 
+        save() {
             axios
                 .put('http://localhost:8080/addInfo', this.user)
-                .then((res) => {
-                    console.log(res)
-                    // this.$store.commit('註冊', res.data.user)
+                .then((response) => {
+                    console.log(response.data);
 
-                    this.$router.push({ name: "login" })
+                    if (response.status === 200) {
+                        if (response.data.code === '200') {
+                            alert('註冊成功!');
+                            this.$router.push({ name: "login" });
 
+                        } else {
+                            alert('註冊失敗');
+
+                        }
+                    } else {
+                        alert('其他不可考錯誤');
+                        return
+                    }
                 })
-                .catch((err) => console.log(err))
-        }
+                .catch((error) => {
+                    console.error(error);
+                    alert('網路錯誤');
+                });
+        },
     },
     data() {
         return {
             user: {
                 account: '',
-                password: '',
+                pwd: '',
                 confirm: ''
             },
             active: {
                 account: false,
-                password: false,
+                pwd: false,
                 confirm: false
             }
         }
-
     },
-
 }
 </script>
 

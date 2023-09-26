@@ -7,6 +7,8 @@ export default {
         return {
             text: null,
             img: null,
+            isText: false,
+            isImg: false,
         }
     },
     computed: {
@@ -52,6 +54,20 @@ export default {
                 .catch(error => {
                     console.error("Error:", error);
                 });
+        },
+        checkNewPost() {
+            this.isText = false; this.isImg = false;
+            if (this.text === null || this.text === "") {
+                this.isText = true;
+            }
+            if (this.img === null) {
+                this.isImg = true;
+            }
+            if (this.text === null || this.text === "" || this.img === null) {
+                return;
+            }
+            this.closeNewPost()
+            this.updateNewPost()
         }
     }
 }
@@ -60,23 +76,27 @@ export default {
 <template>
     <!-- 主外框 -->
     <div class="screen" @click="closeNewPost">
-        <div class="bg-lime-200 rounded-3xl" @click.stop>
-            <div class="m-10">
+        <div class="bg-lime-200 rounded-3xl max-h-[100vh]" @click.stop>
+            <div class="m-6 w-[400px]">
                 <h1 class="text-2xl">新增貼文</h1>
-                <textarea class="w-96 my-8 rounded-2xl px-2 pt-1 min-h-[100px] max-h-[500px]"
-                    style="min-height: 100px; max-height: 500px; height: auto; display: block; resize: none; outline: none; border : 0;"
-                    v-model="text"></textarea>
+                <div class="w-full h-6">
+                    <p v-show="isText" class="text-sm pl-2 pt-1 text-red-500 ">請輸入內文</p>
+                </div>
+                <textarea class="w-full h-[300px] rounded-2xl   "
+                    style="display: block; resize: none; outline: none; border : 0;" v-model="text"></textarea>
+                <div class="w-full h-6">
+                    <p v-show="isImg" class="text-sm pl-2 pt-1 text-red-500">請上傳圖片</p>
+                </div>
                 <label for="newfile">
-                    <div class="cursor-pointer w-96 color1 rounded-2xl overflow-hidden"
+                    <div class="cursor-pointer w-full color1 rounded-2xl overflow-hidden"
                         style="min-height: 50px; background-repeat:no-repeat; display: flex; justify-content: center;">
-                        <img :src="img" alt="">
+                        <img :src="img">
+                        <p class="pt-3 text-white">上傳圖片</p>
                     </div>
                 </label>
                 <input id="newfile" type="file" @change="updateImg" class="hidden">
-                <!-- <img :src="img" alt="NO"> -->
-                <button type="button" class="w-full h-12 hover:bg-slate-400 bg-white block mx-auto mt-8 rounded-2xl"
-                    @click="closeNewPost(), updateNewPost()">發 布</button>
-                <!-- <p>{{ text }}</p> -->
+                <button type="button" class="w-full h-12 hover:bg-slate-400 bg-white block mx-auto mt-6 rounded-2xl"
+                    @click="checkNewPost()">發 布</button>
             </div>
         </div>
     </div>

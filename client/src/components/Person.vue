@@ -20,6 +20,8 @@ export default {
             },
 
             haveTrack: false,
+            track: 0,
+            fans: 0,
         }
     },
     mounted() {
@@ -54,7 +56,6 @@ export default {
             })
                 .then(res => res.json()) // 回傳資料轉成可讀取
                 .then(data => {
-                    // console.log(data);
                     this.getImgById(data.userData.picId)
                     this.userName = data.userData.userName
                     this.introduce = data.userData.introduce
@@ -64,7 +65,7 @@ export default {
 
                 })
                 .catch(error => {
-                    console.error("Error:", error);
+                    console.error("Error:", error)
                 });
         },
         getImgById(imgId) { // 找圖片User
@@ -86,15 +87,42 @@ export default {
                     this.userImg = data.img64
                 })
                 .catch(error => {
-                    console.error("Error:", error);
+                    console.error("Error:", error)
+                });
+
+        },
+        getTrack(Id) { // 求追蹤人數
+            const getById = {
+                "id": Id,
+            };
+            // console.log(JSON.stringify(getById))
+            fetch(this.URL + "get_track", { // 發送網址
+                method: "POST", // 請求型態
+                headers: { // 必要文件
+                    'Content-Type': 'application/json'
+                },
+                // 轉成JSON
+                body: JSON.stringify(getById) // 要傳送的資料
+            })
+                .then(res => res.json()) // 回傳資料轉成可讀取
+                .then(data => {
+                    // console.log(data)
+                    this.track = data.track
+                    this.fans = data.fans
+
+                })
+                .catch(error => {
+                    console.error("Error:", error)
                 });
 
         },
         checkUser() {
             if (this.$route.query.userId == undefined) {
                 this.getUserDataByIdForUser(this.userId)
+                this.getTrack(this.userId)
             } else {
                 this.getUserDataByIdForUser(this.$route.query.userId)
+                this.getTrack(this.$route.query.userId)
                 if (this.$route.query.userId != this.userId) {
                     this.haveTrack = true
                 }
@@ -131,10 +159,10 @@ export default {
                 <!-- 追蹤模塊 -->
                 <div class="w-80  my-6 flex justify-around">
                     <div>
-                        <p class="text-xl font-bold text-white cursor-pointer">追蹤中 {{ 30 }}</p>
+                        <p class="text-xl font-bold text-white cursor-pointer">追蹤中 {{ track }}</p>
                     </div>
                     <div>
-                        <p class="text-xl font-bold text-white cursor-pointer">追蹤中 {{ 274 }}</p>
+                        <p class="text-xl font-bold text-white cursor-pointer">粉絲 {{ fans }}</p>
                     </div>
                 </div>
                 <!-- 追蹤按紐 -->

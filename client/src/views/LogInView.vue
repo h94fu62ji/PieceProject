@@ -1,93 +1,60 @@
 <script>
 import axios from 'axios';
-// import { getDefaultFlags } from 'mysql/lib/ConnectionConfig';
 
 export default {
 
     name: "Login",
-
-    methods: {
-        getData() {
-            axios
-                .post('http://localhost:8080/test01', { maxRedirects: 0, })
-                .then((response) => {
-                    console.log(response)
-
-                })
-                .catch((error) => {
-                    console.log(error)
-                })
-        },
-        keymonitor: function (event) {
-            if (event.key == 'Enter') {
-                checklogin();
-                // alert('登入成功~')
-            } else {
-                alert('你失敗了!')
-            }
-        },
-        checklogin: function () { },
-    },
     data() {
         return {
             user: {
                 account: '',
-                password: ''
+                pwd: ''
             }
         }
 
     },
-    created() {
-        this.getData()
-    }
-    //=====================================
-    // data() {
-    //     return {
-    //         user: {
-    //             account: '',
-    //             password: ''
-    //         },
-    //         rules: {
-    //             account: [{
-    //                 required: true,
-    //                 message: '請輸入帳號'
-    //                 // trigger:'blur'
-    //             }],
-    //             password: [{
-    //                 required: true,
-    //                 message: '請輸入密碼'
-    //                 // trigger:'blur'
-    //             }]
-    //         }
-    //     }
+    methods: {
+        getData() {
+            axios
+                .post('http://localhost:8080/test01', this.user)
+                .then((res) => {
+                    console.log(res.data)
+                    if (res.status == 200) {
+                        if (res.data.code == '200') {
 
+                            localStorage.setItem('account', this.user.account);
+                            localStorage.setItem('pwd', this.user.pwd);
+                            alert('登入成功!');
+                            this.$router.push({ name: "user" });
+                            console.log(res)
+
+                        } else {
+                            alert('登入失敗');
+
+                        }
+                    } else {
+                        alert('其他神奇的錯誤');
+                        return
+                    }
+
+
+                })
+                .catch((error) => {
+                    console.error(error);
+                    alert('網路錯誤');
+                });
+        },
+    },
+    // mounted() {
+
+    //     const savedAccount = localStorage.getItem('account');
+    //     const savedPwd = localStorage.getItem('pwd');
+    //     if (savedAccount && savedPwd) {
+    //         this.user.account = savedAccount;
+    //         this.user.pwd = savedPwd;
+    //     }
     // },
-    // methods: {
-    //     submitForm(formName) {
-    //         console.log(this.$data.user.account);
-    //         console.log(this.$data.user.password);
-    //         let _this = this;
-    //         this.$axios({
-    //             method: 'post',
-    //             url: 'http://localhost:8080/test01',
-    //             data: _this.$data.user
-    //         }).then(res => {
-    //             console.log(res)
-    //             // console.log(res.data.success)
-    //             // console.log(res.data.ueser)
-    //             if (res.data.success == 'true') {
-    //                 alert('登入成功')
-    //             }
-    //         }).catch(error => {
-    //             _this.message({
-    //                 message: '錯誤，請重試',
-    //                 type: "warning"
-    //             })
 
-    //         })
-    //     }
-
-    // }
 }
 
 </script>

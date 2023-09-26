@@ -49,7 +49,7 @@ public class PieceController {
 		return postService.getUserData(req.getId());
 	}
 	// 取得追蹤人數
-	@PostMapping(value = "/get_track_me")
+	@PostMapping(value = "/get_track")
 	public GetTrackRes getTrack(@RequestBody IdReq req) {
 		return postService.getTrack(req.getId());
 	}
