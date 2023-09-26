@@ -23,8 +23,8 @@ export default {
     methods: {
 
 
-        PersonBar() {
-            this.$parent.switchPerson()
+        homeBar() {
+            this.$parent.switchHomeBar()
         },
         SearchBar() {
             this.$parent.switchSearchBar()
@@ -41,7 +41,7 @@ export default {
 
         getImgByIdForUser(imgId) { // 找圖片User
             const getImgId = {
-                "imgId": imgId,
+                "id": imgId,
             };
             // console.log(JSON.stringify(getImgId))
             fetch(this.URL + "get_pic_by_img_id", { // 發送網址
@@ -68,11 +68,11 @@ export default {
 <template>
     <div class="fixed h-screen bgc w-400 flex flex-col justify-around items-center">
         <RouterLink to="/" class="w-400 h-40 mt-10 absolute top-0 left-0 cursor-pointer">
-            <img :src="logoImg" class="w-40 block mx-auto">
+            <img src="../../public/logo.png" class="w-40 block mx-auto">
         </RouterLink>
         <!-- <div class="fake!!"></div> -->
         <div class="mx-auto w-400">
-            <div class="btn" @click="PersonBar">個人頁面</div>
+            <div class="btn" @click="homeBar">個人頁面</div>
             <div class="btn" @click="SearchBar">搜尋</div>
             <div class="btn" @click="ChatList">訊息</div>
             <div class="btn" @click="NewsBar">消息</div>

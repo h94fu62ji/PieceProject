@@ -36,7 +36,7 @@ export default {
 
     getPostList() {
       const getPostUser = {
-        "userId": this.user,
+        "id": this.user,
       };
       // console.log(JSON.stringify(getPostUser))
       fetch(this.URL + "get_post_list", { // 發送網址

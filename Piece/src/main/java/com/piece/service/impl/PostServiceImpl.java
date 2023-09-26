@@ -2,7 +2,6 @@ package com.piece.service.impl;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.Base64;
 import java.util.List;
@@ -14,13 +13,17 @@ import org.springframework.util.StringUtils;
 
 import com.piece.constants.RtnCode;
 import com.piece.entity.Pic;
+import com.piece.entity.UserData;
 import com.piece.repository.PicDao;
 import com.piece.repository.PostDao;
+import com.piece.repository.UserDataDao;
 import com.piece.service.ifs.PostService;
 import com.piece.vo.GetImgRes;
 import com.piece.vo.GetPostByIdVo;
 import com.piece.vo.GetPostListRes;
 import com.piece.vo.GetPostRes;
+import com.piece.vo.GetTrackRes;
+import com.piece.vo.GetUserDataRes;
 import com.piece.vo.NewPostRes;
 
 @Service
@@ -31,6 +34,9 @@ public class PostServiceImpl implements PostService {
 
 	@Autowired
 	private PicDao picDao;
+
+	@Autowired
+	private UserDataDao userDataDao;
 
 	@Override
 	public NewPostRes newPost(int senderId, String text, String pic64, boolean pub) { // 新增貼文
@@ -125,5 +131,25 @@ public class PostServiceImpl implements PostService {
 		List<String> res = postDao.getPostList();
 		return new GetPostListRes(RtnCode.SUCCESSFUL.getCode(), RtnCode.SUCCESSFUL.getMessage(), res);
 	}
+
+	@Override
+	public GetUserDataRes getUserData(int userId) {
+		if (userId == 0) {
+			return new GetUserDataRes(RtnCode.DATA_ERROR.getCode(), RtnCode.DATA_ERROR.getMessage(), null);
+		}
+		Optional<UserData> res = userDataDao.findById(userId);
+		return new GetUserDataRes(RtnCode.SUCCESSFUL.getCode(), RtnCode.SUCCESSFUL.getMessage(), res.get());
+	}
+
+	@Override
+	public GetTrackRes getTrack(int userId) {
+		if (userId == 0) {
+			return new GetTrackRes(RtnCode.DATA_ERROR.getCode(), RtnCode.DATA_ERROR.getMessage());
+		}
+		int trackMe = userDataDao.getTrackMeCount(userId);
+		int track = userDataDao.getTrackCount(userId);
+		return new GetTrackRes(RtnCode.SUCCESSFUL.getCode(), RtnCode.SUCCESSFUL.getMessage(), trackMe, track);
+	}
+
 
 }

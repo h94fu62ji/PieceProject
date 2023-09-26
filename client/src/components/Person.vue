@@ -3,29 +3,73 @@
 import { mapActions, mapState } from 'pinia'
 import indexStore from '../stores/counter'
 export default {
+
+    props: ['userId'],
     data() {
         return {
             items: [1, 2, 3, 4, 5],
+            userImg: null,
+            userName: "載入中...",
+            introduce: "載入中...",
 
+            Userdata: {
+                birthday: "載入中...",
+                address: "載入中...",
+                sex: "載入中...",
+
+            },
+
+            haveTrack: false,
         }
+    },
+    mounted() {
+        this.checkUser()
     },
     computed: {
         // 參數 資料庫 要取用的 state / getters
-        ...mapState(indexStore, ['URL', 'user',]),
+        ...mapState(indexStore, ['URL',]),
     },
     methods: {
         // 參數 資料庫 要取用的 actions(methods)
         ...mapActions(indexStore, []),
-        closePerson() {
-            this.$parent.switchPerson()
+        openHomeBar() {
+            this.$parent.switchHomeBar()
         },
         openSetBar() {
             this.$parent.switchSetBar()
         },
 
-        getImgByIdForUser(imgId) { // 找圖片User
+        getUserDataByIdForUser(userId) { // 找User
+            const getUserId = {
+                "id": userId,
+            };
+            // console.log(JSON.stringify(getImgId))
+            fetch(this.URL + "get_user_data", { // 發送網址
+                method: "POST", // 請求型態
+                headers: { // 必要文件
+                    'Content-Type': 'application/json'
+                },
+                // 轉成JSON
+                body: JSON.stringify(getUserId) // 要傳送的資料
+            })
+                .then(res => res.json()) // 回傳資料轉成可讀取
+                .then(data => {
+                    // console.log(data);
+                    this.getImgById(data.userData.picId)
+                    this.userName = data.userData.userName
+                    this.introduce = data.userData.introduce
+                    this.Userdata.birthday = data.userData.birthday
+                    this.Userdata.address = data.userData.address
+                    this.Userdata.sex = data.userData.sex
+
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
+        },
+        getImgById(imgId) { // 找圖片User
             const getImgId = {
-                "imgId": imgId,
+                "id": imgId,
             };
             // console.log(JSON.stringify(getImgId))
             fetch(this.URL + "get_pic_by_img_id", { // 發送網址
@@ -44,7 +88,18 @@ export default {
                 .catch(error => {
                     console.error("Error:", error);
                 });
+
         },
+        checkUser() {
+            if (this.$route.query.userId == undefined) {
+                this.getUserDataByIdForUser(this.userId)
+            } else {
+                this.getUserDataByIdForUser(this.$route.query.userId)
+                if (this.$route.query.userId != this.userId) {
+                    this.haveTrack = true
+                }
+            }
+        }
     }
 }
 </script>
@@ -58,18 +113,20 @@ export default {
             <div class="ml-10">
                 <!-- 上方功能區 -->
                 <div class="w-80 h-16 my-6 flex justify-between">
-                    <div class="w-16 h-16 bg-white cursor-pointer" @click="closePerson"></div>
+                    <div class="w-16 h-16 bg-white cursor-pointer" @click="openHomeBar"></div>
                     <div class="w-16 h-16 bg-white cursor-pointer" @click="openSetBar"></div>
                 </div>
                 <!-- 大頭貼 -->
-                <div class="bg-white w-80 h-80  my-6 rounded-3xl "></div>
+                <div class="bg-white w-80 my-6 rounded-3xl overflow-hidden">
+                    <img :src="userImg" class="w-80">
+                </div>
                 <!-- 名稱 -->
                 <div class="w-80  my-4">
-                    <h3 class="text-4xl font-bold text-end pr-1">{{ "UserName" }}</h3>
+                    <h3 class="text-4xl font-bold text-end pr-1">{{ userName }}</h3>
                 </div>
                 <!-- 自介 -->
                 <div class="w-80  my-4">
-                    <h1 class="text-2xl font-bold text-end pr-1">{{ "我是一個沒有裝飾的蛋糕" }}</h1>
+                    <h1 class="text-2xl font-bold text-end pr-1">{{ introduce }}</h1>
                 </div>
                 <!-- 追蹤模塊 -->
                 <div class="w-80  my-6 flex justify-around">
@@ -81,16 +138,22 @@ export default {
                     </div>
                 </div>
                 <!-- 追蹤按紐 -->
-                <!-- <button type="button" class="w-40 h-16 ml-20 my-6 bg-green-700 block rounded-2xl text-white text-2xl">追 蹤</button> -->
+                <div v-if="haveTrack">
+                    <button v-if="condition" type="button"
+                        class="w-40 h-16 ml-20 my-6 bg-green-700 block rounded-2xl text-white text-2xl">追
+                        蹤</button>
+                    <button v-else type="button"
+                        class="w-40 h-16 ml-20 my-6 bg-green-700 block rounded-2xl text-white text-2xl">已 追 蹤</button>
+                </div>
 
                 <!-- 基本資料區 -->
                 <div class="my-4">
-                    <div v-for="item in items" class="bg-white w-80 h-16  my-2 rounded-2xl flex">
+                    <div v-for="(item, index) in Userdata" class="bg-white w-80 h-16  my-2 rounded-2xl flex">
                         <div class="bg-yellow-200 w-32 h-16 rounded-2xl ">
-                            <h3 class="text-2xl font-bold text-center pt-4 ">{{ "生 日" }}</h3>
+                            <h3 class="text-2xl font-bold text-center pt-4 ">{{ index }}</h3>
                         </div>
                         <div class="flex-grow h-16 rounded-2xl">
-                            <p class="text-2xl font-bold text-center pt-4 ">{{ 870829 }}</p>
+                            <p class="text-2xl font-bold text-center pt-4 ">{{ item }}</p>
                         </div>
                     </div>
                 </div>

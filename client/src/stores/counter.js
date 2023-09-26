@@ -10,7 +10,7 @@ export default defineStore("postStore",{
     user:10000001,
     postView: false,
     newPostView: false,
-    login: false,
+    login: true,
 
   }),
   // computed 顯示在畫面上的臨時變數
@@ -30,6 +30,9 @@ export default defineStore("postStore",{
     },
     pushListToFirst(postId){
       this.postIdList.unshift(postId)
+    },
+    rePostIdList(){
+      this.postIdList = []
     }
 
   }

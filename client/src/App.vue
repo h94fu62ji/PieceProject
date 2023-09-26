@@ -27,7 +27,7 @@ export default {
   },
   data() {
     return {
-      personView: false,
+      homeBarView: false,
       setBarView: false,
       chatListView: false,
       searchBarView: false,
@@ -36,40 +36,46 @@ export default {
   },
   computed: {
     // 參數 資料庫 要取用的 state / getters
-    ...mapState(indexStore, ['postView', 'newPostView', 'login']),
+    ...mapState(indexStore, ['postView', 'newPostView', 'login', 'user']),
   },
   methods: {
     // 參數 資料庫 要取用的 actions(methods)
     ...mapActions(indexStore, ['switchPost', 'switchNewPost', 'randomNum']),
-    switchPerson() {
-      this.personView = !this.personView
+    switchHomeBar() {
+      this.homeBarView = !this.homeBarView
     },
     switchSetBar() {
       this.setBarView = !this.setBarView
+      this.switchHomeBar()
     },
     switchChatList() {
       this.chatListView = !this.chatListView
+      this.switchHomeBar()
     },
     switchSearchBar() {
       this.searchBarView = !this.searchBarView
+      this.switchHomeBar()
     },
     switchNewsBar() {
       this.newsBarView = !this.newsBarView
+      this.switchHomeBar()
     },
+
+
 
   },
 }
 </script>
 
 <template>
-  <HomeBar v-if="login" />
+  <div v-if="login" class="fakediv!! w-400 bg-slate-100 h-screen flex-shrink-0"></div>
+  <Person :userId="this.user" :key="$route.fullPath" />
+  <HomeBar v-if="login" :class="{ hideBar: !homeBarView, showBar: homeBarView }" />
   <SearchBar :class="{ hideBar: !searchBarView, showBar: searchBarView }" @click="switchSearchBar" />
   <NewsBar :class="{ hideBar: !newsBarView, showBar: newsBarView }" @click="switchNewsBar" />
   <Post v-if="postView" style="z-index: 10;" />
-  <Person :class="{ hideBar: !personView, showBar: personView }" />
   <SetBar :class="{ hideBar: !setBarView, showBar: setBarView }" @click="switchSetBar" />
-  <ChatList :class="{ hideBar: !chatListView, showBar: chatListView }" />
-  <div v-if="login" class="fakediv!! w-400 bg-slate-100 h-screen flex-shrink-0"></div>
+  <ChatList :class="{ hideBar: !chatListView, showBar: chatListView }" :key="$route.fullPath" />
   <RouterView class="flex-grow" :currentUserId="currentUserId" :key="$route.fullPath" />
   <div
     class="w-20 h-20 rounded-full cursor-pointer select-none bg-cyan-500 fixed bottom-10 right-10 text-center text-6xl pt-1 text-white shadow-2xl shadow-gray-700 "
@@ -80,11 +86,11 @@ export default {
 <style scoped>
 .hideBar {
   transform: translateX(-420px);
-  transition: all .5s;
+  transition: all .6s;
 }
 
 .showBar {
   transform: translateX(0);
-  transition: all .5s;
+  transition: all .6s;
 }
 </style>

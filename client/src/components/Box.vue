@@ -43,7 +43,7 @@ export default {
 
     getPostById() {  // 找貼文
       const getPostId = {
-        "postId": this.postId,
+        "id": this.postId,
       };
       // console.log(JSON.stringify(newPost))
       fetch(this.URL + "get_post_by_post_id", { // 發送網址
@@ -72,7 +72,7 @@ export default {
 
     getImgByIdForPost(imgId) { // 找圖片Post
       const getImgId = {
-        "imgId": imgId,
+        "id": imgId,
       };
       // console.log(JSON.stringify(getImgId))
       fetch(this.URL + "get_pic_by_img_id", { // 發送網址
@@ -96,7 +96,7 @@ export default {
 
     getImgByIdForUser(imgId) { // 找圖片User
       const getImgId = {
-        "imgId": imgId,
+        "id": imgId,
       };
       // console.log(JSON.stringify(getImgId))
       fetch(this.URL + "get_pic_by_img_id", { // 發送網址
