@@ -58,7 +58,6 @@ export default {
                         fetch(this.URL + `allMsg/${c.chatroomId}`)
                             .then(res => res.json())
                             .then(data => {
-
                                 const lastMsgObj = data.mList[data.mList.length - 1];
 
                                 if (lastMsgObj.messageContent.length > 8) {
