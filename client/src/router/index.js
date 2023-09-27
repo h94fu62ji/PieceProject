@@ -18,6 +18,12 @@ const router = createRouter({
       props:true,
     },  
     {
+      path: '/set',
+      name: 'set',
+      component: () => import('../views/SetView.vue'),
+      meta: { requiresAuth: true },
+    },
+    {
       path: '/login',
       name: 'login',
       component: () => import('../views/LogInView.vue'),

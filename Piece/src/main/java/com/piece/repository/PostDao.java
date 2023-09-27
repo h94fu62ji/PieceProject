@@ -29,4 +29,7 @@ public interface PostDao extends JpaRepository<Post, Integer> {
 	@Query(value = "SELECT post_id FROM post WHERE public = FALSE ORDER BY time DESC;", nativeQuery = true)
 	public List<String> getPostList();
 	
+	@Query(value = "SELECT post_id FROM post WHERE sender_id = :userId AND public = FALSE ORDER BY time DESC;", nativeQuery = true)
+	public List<String> getPostListById(@Param("userId") String userId);
+	
 }

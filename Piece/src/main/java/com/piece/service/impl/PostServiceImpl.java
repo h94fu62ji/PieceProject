@@ -3,6 +3,7 @@ package com.piece.service.impl;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.time.LocalDate;
 import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +26,7 @@ import com.piece.vo.GetPostRes;
 import com.piece.vo.GetTrackRes;
 import com.piece.vo.GetUserDataRes;
 import com.piece.vo.NewPostRes;
+import com.piece.vo.UpdataRes;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -58,7 +60,7 @@ public class PostServiceImpl implements PostService {
 			return new NewPostRes(RtnCode.DATA_ERROR.getCode(), RtnCode.DATA_ERROR.getMessage());
 		}
 		System.out.println("新增成功");
-		return new NewPostRes(RtnCode.SUCCESSFUL.getCode(), RtnCode.SUCCESSFUL.getMessage(),res.getPicId());
+		return new NewPostRes(RtnCode.SUCCESSFUL.getCode(), RtnCode.SUCCESSFUL.getMessage(), res.getPicId());
 	}
 
 	private boolean saveImg(String base64ImageAll, int pic_id, String picAdd) { // 儲存圖片至本地
@@ -126,9 +128,10 @@ public class PostServiceImpl implements PostService {
 	@Override
 	public GetPostListRes getPostList(String userId) {
 		if (!StringUtils.hasText(userId)) {
-			return new GetPostListRes(RtnCode.DATA_ERROR.getCode(), RtnCode.DATA_ERROR.getMessage(), null);
+			List<String> res = postDao.getPostList();
+			return new GetPostListRes(RtnCode.SUCCESSFUL.getCode(), RtnCode.SUCCESSFUL.getMessage(), res);
 		}
-		List<String> res = postDao.getPostList();
+		List<String> res = postDao.getPostListById(userId);
 		return new GetPostListRes(RtnCode.SUCCESSFUL.getCode(), RtnCode.SUCCESSFUL.getMessage(), res);
 	}
 
@@ -151,5 +154,14 @@ public class PostServiceImpl implements PostService {
 		return new GetTrackRes(RtnCode.SUCCESSFUL.getCode(), RtnCode.SUCCESSFUL.getMessage(), track, fans);
 	}
 
+	@Override
+	public UpdataRes updataUserData(String userId, String userName, LocalDate birthday, String address,
+			String introduce, String sex) {
+		int res = userDataDao.updateInfo(userId, userName, birthday, address, introduce, sex);
+		if (res == 0) {
+			return new UpdataRes(RtnCode.DATA_ERROR.getCode(), RtnCode.DATA_ERROR.getMessage());
+		}
+		return new UpdataRes(RtnCode.SUCCESSFUL.getCode(), RtnCode.SUCCESSFUL.getMessage());
+	}
 
 }

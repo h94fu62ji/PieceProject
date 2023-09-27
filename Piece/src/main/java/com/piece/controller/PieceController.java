@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.piece.entity.UserData;
 import com.piece.repository.UserDataDao;
 import com.piece.service.ifs.PostService;
 import com.piece.vo.GetImgRes;
@@ -16,6 +17,7 @@ import com.piece.vo.GetUserDataRes;
 import com.piece.vo.IdReq;
 import com.piece.vo.NewPostReq;
 import com.piece.vo.NewPostRes;
+import com.piece.vo.UpdataRes;
 import com.piece.vo.UserIdReq;
 
 @CrossOrigin
@@ -60,4 +62,9 @@ public class PieceController {
 		return postService.getTrack(req.getUserId());
 	}
 
+	@PostMapping(value = "/update_user_data")
+	public UpdataRes updataUser(@RequestBody UserData req) {
+		return postService.updataUserData(req.getAccount(), req.getUserName(), req.getBirthday(), req.getAddress(),
+				req.getIntroduce(), req.getSex());
+	}
 }

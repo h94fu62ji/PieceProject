@@ -43,8 +43,8 @@ export default defineStore("postStore",{
       this.login = false
       localStorage.removeItem("account")
       localStorage.removeItem("pwd")
-
     },
+
 
   }
 });

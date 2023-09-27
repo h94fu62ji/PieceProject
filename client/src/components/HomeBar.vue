@@ -18,14 +18,17 @@ export default {
     },
     computed: {
         // 參數 資料庫 要取用的 state / getters
-        ...mapState(indexStore, ['URL']),
+        ...mapState(indexStore, ['URL', 'user']),
     },
     methods: {
-        ...mapActions(indexStore, ['signOut']),
+        ...mapActions(indexStore, ['signOut', 'rePostIdList']),
 
 
         homeBar() {
             this.$parent.switchHomeBar()
+            this.rePostIdList()
+            this.$router.push(`/?userId=${this.user}`)
+
         },
         searchBar() {
             this.$parent.switchSearchBar()
@@ -36,8 +39,9 @@ export default {
         newsBar() {
             this.$parent.switchNewsBar()
         },
-        setBar() {
-            this.$parent.switchSetBar()
+        goSet() {
+            this.$router.push("set")
+            this.$parent.homeBarClose()
         },
 
 
@@ -87,7 +91,7 @@ export default {
             <div class="btn" @click="searchBar">搜尋</div>
             <div class="btn" @click="chatList">訊息</div>
             <div class="btn" @click="newsBar">消息</div>
-            <div class="btn" @click="setBar">設定</div>
+            <div class="btn" @click="goSet">設定</div>
             <div class="h-20"></div>
             <div class="btn" @click="signOut(), relode()">登出</div>
 

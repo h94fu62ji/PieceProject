@@ -21,8 +21,8 @@ export default {
 
     watch: {
         isChatroomDataOver() {
-            console.log("載入完畢")
-            console.log(this.lastMsgList.length)
+            // console.log("載入完畢")
+            // console.log(this.lastMsgList.length)
 
         }
     },
@@ -51,7 +51,9 @@ export default {
             fetch(this.URL + `chatAll?currentUserId=${this.user}`)
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data);
+                    if (data.code != 200) {
+                        return
+                    }
                     // this.cList = data.cList;
                     let msgsArr = []; // 暫定排序用
                     data.cList.forEach(c => {

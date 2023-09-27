@@ -17,14 +17,13 @@ app.mount('#app')
 
 
 router.beforeEach((to, from, next) => {
-    console.log("導航守衛啟動")
+    // console.log("導航守衛啟動")
     if (to.meta.requiresAuth) {  //to表示要進去的那頁
-        
         const user = {
             "account" : localStorage.getItem("account"),
             "pwd" : localStorage.getItem("pwd"),
         }
-        const api = `http://localhost:8080/test01`;
+        const api =  indexStore().URL + "test01";
         axios.post(api, user)
             .then(res => {
             // console.log(res.data.code);
@@ -46,7 +45,7 @@ router.beforeEach((to, from, next) => {
             "account" : localStorage.getItem("account"),
             "pwd" : localStorage.getItem("pwd"),
         }
-        const api = `http://localhost:8080/test01`;
+        const api = indexStore().URL + "test01";
         axios.post(api, user)
         .then(res => {
         if (res.data.code == "200" ) {
@@ -56,8 +55,32 @@ router.beforeEach((to, from, next) => {
             indexStore().signOut()
             next()
         }
+
     });
 
 
     } else next()
 })
+
+
+
+
+
+// router.beforeEach((to, from, next) => {
+//     console.log("導航守衛啟動")
+//     if (to.meta.isSet) {  //to表示要進去的那頁
+//         const user = {
+//             "account" : localStorage.getItem("account"),
+//         }
+//         const api =  indexStore().URL + "get_user_data";
+//         axios.post(api, user)
+//             .then(res => {
+//                 console.log(res)
+//                 if(res.data.userData == 0){
+//                     next("set")
+//                 }
+//             });
+//     } else next()
+// })
+
+

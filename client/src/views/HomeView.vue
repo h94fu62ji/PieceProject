@@ -13,9 +13,10 @@ export default {
   components: {
     Box,
   },
-  beforeMount() {
-    // 載入貼文ID
-    this.getPostList(this.user)
+  mounted() {
+    // 檢查ID
+    this.checkUser()
+
   },
   updated() {
     // 瀑布流設定
@@ -28,9 +29,7 @@ export default {
       columnWidth: 450,
     });
   },
-  watchEffect: {
 
-  },
   computed: {
     // 參數 資料庫 要取用的 state / getters
     ...mapState(indexStore, ['URL', 'postView', 'user', 'postIdList']),
@@ -38,7 +37,7 @@ export default {
   methods: {
     // 參數 資料庫 要取用的 actions(methods)
     ...mapActions(indexStore, ['switchPost', 'pushList', 'changeId']),
-
+    // 取得貼文列表
     getPostList(user) {
       const getPostUser = {
         "id": user,
@@ -54,7 +53,7 @@ export default {
       })
         .then(res => res.json()) // 回傳資料轉成可讀取
         .then(data => {
-          console.log(data);
+          // console.log(data);
           data.postList.forEach(item => {
             this.pushList(item)
           });
@@ -76,8 +75,22 @@ export default {
       msnry.layout();
     },
 
-    consolelog(id) {
+    // 給父層ID
+    giveId(id) {
       this.$emit('getPostId', id)
+    },
+
+    // 檢查網址有否ID
+    checkUser() {
+      if (this.$route.query.userId == undefined) {
+        this.getPostList()
+      } else if (this.$route.query.userId != this.user) {
+        this.getPostList(this.$route.query.userId)
+      } else {
+        this.getPostList(this.user)
+
+      }
+
     }
   },
 }
@@ -88,7 +101,7 @@ export default {
 <template>
   <!-- 瀑布流用 -->
   <div class="grid ml-10 mt-6">
-    <Box v-for="(item, index) in postIdList" class="grid-item" :postId="item" :key="index" @click="consolelog(item)">
+    <Box v-for="(item, index) in postIdList" class="grid-item" :postId="item" :key="index" @click="giveId(item)">
     </Box>
   </div>
 </template>

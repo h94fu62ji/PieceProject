@@ -119,28 +119,25 @@ export default {
 
 <template>
   <!-- 貼文外框 -->
-  <div class="bg-lime-300 rounded-3xl relative overflow-hidden outsideBox shadow-2xl shadow-gray-700"
-    style="width: 450px;margin-bottom: 50px;">
+  <div class="bg-lime-300 rounded-3xl relative overflow-hidden outsideBox shadow-2xl shadow-gray-700 w-[450px] mb-[50px]">
     <!-- 貼文內框 -->
-    <div class="mx-auto my-3" style="width: 430px; overflow:hidden;">
+    <div class="mx-auto my-3 w-[430px] overflow-hidden">
       <!-- 圖片區 -->
-      <img :src="postImg" class="rounded-2xl" style="width: 430px;">
+      <img :src="postImg" class="rounded-2xl w-[430px]">
       <!-- 資訊區 -->
-      <div class="mx-auto flex justify-center pt-2" style="width: 430px;">
+      <div class="mx-auto flex justify-center pt-2 w-[430px]">
         <!-- 頭貼 -->
-        <img :src="userImg" class="rounded-lg block" style="width: 60px;height: 60px;">
+        <img :src="userImg" class="rounded-lg block w-[60px] h-[60px]">
         <!-- 內文區 -->
-        <div class="" style="width: 330px;  height: 60px;">
+        <div class="w-[330px] h-[60px]">
           <!-- 內文 -->
-          <div class=" mx-auto text-xl pt-4 text-center"
-            style="width: 80%; height: 60px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+          <div class=" mx-auto text-xl pt-4 text-center w-[80%] h-[60px] overflow-hidden whitespace-nowrap text-ellipsis">
             {{ text }}</div>
         </div>
       </div>
     </div>
     <!-- 反黑 -->
-    <div class="show bg-gray-700 opacity-80 absolute top-0 left-0 z-0 hidden" style="width: 450px; height: 100%;"
-      @click="openPost()">
+    <div class="show w-[450px] h-[100%] bg-gray-700 opacity-80 absolute top-0 left-0 z-0 hidden" @click="openPost()">
       <div>
 
         <p class="absolute bottom-24 left-6 text-white font-bold select-none">按讚人數 {{ up }}</p>

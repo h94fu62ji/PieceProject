@@ -8,6 +8,7 @@ import NewsBar from './components/NewsBar.vue';
 import Post from './components/Post.vue';
 import NewPost from './components/NewPost.vue'
 import ChatList from './components/ChatList.vue';
+// import Mesg from './components/Mesg.vue';
 //pinia
 import { mapActions, mapState } from 'pinia'
 import indexStore from './stores/counter'
@@ -23,7 +24,10 @@ export default {
     Post,
     NewPost,
     ChatList,
-    RouterView
+    // Mesg,
+    RouterView,
+
+
   },
   provide() {
     return {
@@ -43,13 +47,16 @@ export default {
   },
   computed: {
     // 參數 資料庫 要取用的 state / getters
-    ...mapState(indexStore, ['postView', 'newPostView', 'login', 'user',]),
+    ...mapState(indexStore, ['postView', 'newPostView', 'login', 'user']),
   },
   methods: {
     // 參數 資料庫 要取用的 actions(methods)
-    ...mapActions(indexStore, ['switchPost', 'switchNewPost', 'randomNum']),
+    ...mapActions(indexStore, ['switchPost', 'switchNewPost']),
     switchHomeBar() {
       this.homeBarView = !this.homeBarView
+    },
+    homeBarClose() {
+      this.homeBarView = false
     },
     switchSetBar() {
       this.setBarView = !this.setBarView
@@ -95,6 +102,7 @@ export default {
     class="w-20 h-20 rounded-full cursor-pointer select-none bg-cyan-500 fixed bottom-10 right-10 text-center text-6xl pt-1 text-white shadow-2xl shadow-gray-700 "
     @click="switchNewPost">+</div>
   <NewPost v-if="newPostView" />
+  <!-- <Mesg v-if="mesgView" /> -->
 </template>
 
 <style scoped>

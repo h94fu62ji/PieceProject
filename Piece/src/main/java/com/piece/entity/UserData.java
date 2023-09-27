@@ -43,18 +43,30 @@ public class UserData {
 		this.sex = sex;
 	}
 
+	public UserData(String account, String userName, LocalDate birthday, String address, String introduce,
+			String sex) {
+		super();
+		this.account = account;
+		this.userName = userName;
+		this.birthday = birthday;
+		this.address = address;
+		this.introduce = introduce;
+		this.sex = sex;
+	}	
+
+
 	public UserData(String account, String userName) {
 		super();
 		this.account = account;
 		this.userName = userName;
 	}
 
-	public String getUserId() {
+	public String getAccount() {
 		return account;
 	}
 
-	public void setUserId(String userId) {
-		this.account = userId;
+	public void setAccount(String account) {
+		this.account = account;
 	}
 
 	public String getUserName() {

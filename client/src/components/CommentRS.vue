@@ -1,9 +1,9 @@
 <script>
-import PullDownMenuVeiw from '../components/PullDownMenu.vue'
-import axios from 'axios';
+import PullDownMenuRS from './PullDownMenuRS.vue'
+import axios from 'axios'
 export default {
     components: {
-        PullDownMenuVeiw,
+        PullDownMenuRS,
     },
     data() {
         return {
@@ -150,7 +150,7 @@ export default {
         </div>
         <!-- 留言的編輯選單 -->
         <div v-on:click="openMenu" class="comment_edit">
-            <PullDownMenuVeiw v-if="isShow" />
+            <PullDownMenuRS v-if="isShow" />
         </div>
 
     </div>

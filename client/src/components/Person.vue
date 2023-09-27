@@ -128,7 +128,11 @@ export default {
                     this.haveTrack = true
                 }
             }
-        }
+        },
+        goSet() {
+            this.$router.push("set")
+            this.$parent.homeBarClose()
+        },
     }
 }
 </script>
@@ -143,7 +147,7 @@ export default {
                 <!-- 上方功能區 -->
                 <div class="w-80 h-16 my-6 flex justify-between">
                     <div class="w-16 h-16 bg-white cursor-pointer" @click="openHomeBar"></div>
-                    <div class="w-16 h-16 bg-white cursor-pointer" @click="openSetBar"></div>
+                    <div class="w-16 h-16 bg-white cursor-pointer" @click="goSet"></div>
                 </div>
                 <!-- 大頭貼 -->
                 <div class="bg-white w-80 my-6 rounded-3xl overflow-hidden">
@@ -182,7 +186,7 @@ export default {
                             <h3 class="text-2xl font-bold text-center pt-4 ">{{ index }}</h3>
                         </div>
                         <div class="flex-grow h-16 rounded-2xl">
-                            <p class="text-2xl font-bold text-center pt-4 ">{{ item }}</p>
+                            <p class="text-2xl font-bold text-center pt-4 ">{{ item == null ? '尚未設定' : item }}</p>
                         </div>
                     </div>
                 </div>

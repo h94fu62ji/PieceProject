@@ -1,12 +1,8 @@
 <script>
-import { Icon } from '@iconify/vue';
-import { TransitionGroup } from 'vue';
-import CommentView from '../components/Comment.vue';
-import axios from 'axios';
+import CommentRS from './CommentRS.vue';
 export default {
     components: {
-        Icon,
-        CommentView,
+        CommentRS,
 
     },
     data() {
@@ -178,7 +174,7 @@ export default {
                     <!-- 留言區域 -->
                     <div class="command_aera">
                         <!-- <CommentView v-for="(item, index) in [a,b]" :key="index" /> -->
-                        <CommentView />
+                        <CommentRS />
                         <!-- 留言的元件 -->
                     </div>
                 </div>
