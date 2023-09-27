@@ -32,7 +32,7 @@ public class RestfulController {
 	private MessageDao messageDao;
 
 	@GetMapping("/chatAll")
-	public ChatroomRes getAllChatroom(@RequestParam int currentUserId) {
+	public ChatroomRes getAllChatroom(@RequestParam String currentUserId) {
 		List<Chatroom> res = chatroomDao.findByUser1OrUser2(currentUserId);
 
 		if (res.size() == 0) {
@@ -62,11 +62,11 @@ public class RestfulController {
 		Chatroom chatroom = chatroomDao.findByChatroomId(setReadMsgIdReq.getChatroomId());
 
 		System.out.println(setReadMsgIdReq.getUser());
-		if (chatroom.getUser1() == setReadMsgIdReq.getUser()) {
+		if (chatroom.getUser1().equals(setReadMsgIdReq.getUser())) {
 			// 如果當前使用者是這個聊天室的user1的話
 			chatroom.setUser1Read(setReadMsgIdReq.getLastReadMsgId());
 		}
-		if (chatroom.getUser2() == setReadMsgIdReq.getUser()) {
+		if (chatroom.getUser2().equals(setReadMsgIdReq.getUser())) {
 			// 若當前使用者是user2
 			chatroom.setUser2Read(setReadMsgIdReq.getLastReadMsgId());
 		}

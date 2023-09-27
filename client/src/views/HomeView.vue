@@ -6,14 +6,16 @@ import Masonry from "masonry-layout";
 import { mapActions, mapState } from 'pinia'
 import indexStore from '../stores/counter'
 export default {
+  data() {
+    return {
+    }
+  },
   components: {
     Box,
   },
   beforeMount() {
-    this.logincheck()
-
     // 載入貼文ID
-    this.getPostList()
+    this.getPostList(this.user)
   },
   updated() {
     // 瀑布流設定
@@ -26,17 +28,20 @@ export default {
       columnWidth: 450,
     });
   },
+  watchEffect: {
+
+  },
   computed: {
     // 參數 資料庫 要取用的 state / getters
-    ...mapState(indexStore, ['URL', 'postView', 'user', 'postIdList', 'login']),
+    ...mapState(indexStore, ['URL', 'postView', 'user', 'postIdList']),
   },
   methods: {
     // 參數 資料庫 要取用的 actions(methods)
     ...mapActions(indexStore, ['switchPost', 'pushList', 'changeId']),
 
-    getPostList() {
+    getPostList(user) {
       const getPostUser = {
-        "id": this.user,
+        "id": user,
       };
       // console.log(JSON.stringify(getPostUser))
       fetch(this.URL + "get_post_list", { // 發送網址
@@ -70,13 +75,7 @@ export default {
       });
       msnry.layout();
     },
-    // 檢查登入
-    logincheck() {
-      if (!this.login) {
-        this.$router.push("/login");
-      }
-    },
-    // 輸出自己的POST ID
+
     consolelog(id) {
       this.$emit('getPostId', id)
     }
@@ -89,7 +88,8 @@ export default {
 <template>
   <!-- 瀑布流用 -->
   <div class="grid ml-10 mt-6">
-    <Box v-for="item in postIdList" class="grid-item" :postId="item" @click="consolelog(item)"></Box>
+    <Box v-for="(item, index) in postIdList" class="grid-item" :postId="item" :key="index" @click="consolelog(item)">
+    </Box>
   </div>
 </template>
 

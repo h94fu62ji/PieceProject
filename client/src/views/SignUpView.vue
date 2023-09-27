@@ -2,19 +2,34 @@
 import axios from 'axios';
 
 export default {
+    data() {
+        return {
+            user: {
+                account: '',
+                pwd: '',
+                confirm: ''
+            },
+            active: {
+                account: false,
+                pwd: false,
+                confirm: false
+            }
+        }
+    },
 
     name: "SignUp",
 
     methods: {
 
         save() {
+            console.log(this.user)
             axios
                 .put('http://localhost:8080/addInfo', this.user)
-                .then((response) => {
-                    console.log(response.data);
+                .then((res) => {
+                    console.log(res.data);
 
-                    if (response.status === 200) {
-                        if (response.data.code === '200') {
+                    if (res.status == 200) {
+                        if (res.data.code == '200') {
                             alert('註冊成功!');
                             this.$router.push({ name: "login" });
 
@@ -33,20 +48,7 @@ export default {
                 });
         },
     },
-    data() {
-        return {
-            user: {
-                account: '',
-                pwd: '',
-                confirm: ''
-            },
-            active: {
-                account: false,
-                pwd: false,
-                confirm: false
-            }
-        }
-    },
+
 }
 </script>
 
@@ -76,7 +78,7 @@ export default {
 
                 <input
                     class=" focus:outline-[#90a073] w-[500px] h-[40px] rounded-[5px] shadow-[inset_0px_1px_1px_rgba(0,0,0,0.3)] pl-[12px] "
-                    type="text" placeholder="輸入密碼" :class="{ active: active.password }" v-model="user.password">
+                    type="text" placeholder="輸入密碼" :class="{ active: active.pwd }" v-model="user.pwd">
                 <p class=" flex text-[#909090] text-[1px]  ml-[420px] mt-1">輸入密碼</p>
             </div>
 

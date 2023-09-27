@@ -21,22 +21,24 @@ export default {
         ...mapState(indexStore, ['URL']),
     },
     methods: {
+        ...mapActions(indexStore, ['signOut']),
 
 
         homeBar() {
             this.$parent.switchHomeBar()
         },
-        SearchBar() {
+        searchBar() {
             this.$parent.switchSearchBar()
         },
-        ChatList() {
+        chatList() {
             this.$parent.switchChatList()
         },
-        NewsBar() {
+        newsBar() {
             this.$parent.switchNewsBar()
         },
-
-
+        setBar() {
+            this.$parent.switchSetBar()
+        },
 
 
         getImgByIdForUser(imgId) { // 找圖片User
@@ -61,6 +63,11 @@ export default {
                     console.error("Error:", error);
                 });
         },
+        relode() {
+            location.reload()
+        },
+
+
     }
 }
 </script>
@@ -72,14 +79,17 @@ export default {
         </RouterLink>
         <!-- <div class="fake!!"></div> -->
         <div class="mx-auto w-400">
+            <div class="h-20"></div>
             <RouterLink to="/">
                 <div class="btn">主頁</div>
             </RouterLink>
             <div class="btn" @click="homeBar">個人頁面</div>
-            <div class="btn" @click="SearchBar">搜尋</div>
-            <div class="btn" @click="ChatList">訊息</div>
-            <div class="btn" @click="NewsBar">消息</div>
-            <div class="btn">設定</div>
+            <div class="btn" @click="searchBar">搜尋</div>
+            <div class="btn" @click="chatList">訊息</div>
+            <div class="btn" @click="newsBar">消息</div>
+            <div class="btn" @click="setBar">設定</div>
+            <div class="h-20"></div>
+            <div class="btn" @click="signOut(), relode()">登出</div>
 
         </div>
 

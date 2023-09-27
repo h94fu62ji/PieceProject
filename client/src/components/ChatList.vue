@@ -51,7 +51,7 @@ export default {
             fetch(this.URL + `chatAll?currentUserId=${this.user}`)
                 .then(res => res.json())
                 .then(data => {
-                    // console.log(data);
+                    console.log(data);
                     // this.cList = data.cList;
                     let msgsArr = []; // 暫定排序用
                     data.cList.forEach(c => {

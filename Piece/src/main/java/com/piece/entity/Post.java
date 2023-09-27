@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -12,12 +14,13 @@ import javax.persistence.Table;
 public class Post {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "post_id")
 	private int postId;
 	@Column(name = "sender_id")
-	private int senderId;
+	private String senderId;
 	@Column(name = "share_id")
-	private int shareId;
+	private String shareId;
 	@Column(name = "text")
 	private String text;
 	@Column(name = "time")
@@ -35,7 +38,7 @@ public class Post {
 	}
 
 	// 新增貼文用
-	public Post(int senderId, String text, int picId, boolean pub) {
+	public Post(String senderId, String text, int picId, boolean pub) {
 		super();
 		this.senderId = senderId;
 		this.text = text;
@@ -43,7 +46,7 @@ public class Post {
 		this.pub = pub;
 	}
 
-	public Post(int postId, int senderId, int shareId, String text, LocalDateTime time, int up, int picId,
+	public Post(int postId, String senderId, String shareId, String text, LocalDateTime time, int up, int picId,
 			boolean pub) {
 		super();
 		this.postId = postId;
@@ -64,19 +67,19 @@ public class Post {
 		this.postId = postId;
 	}
 
-	public int getSenderId() {
+	public String getSenderId() {
 		return senderId;
 	}
 
-	public void setSenderId(int senderId) {
+	public void setSenderId(String senderId) {
 		this.senderId = senderId;
 	}
 
-	public int getShareId() {
+	public String getShareId() {
 		return shareId;
 	}
 
-	public void setShareId(int shareId) {
+	public void setShareId(String shareId) {
 		this.shareId = shareId;
 	}
 
@@ -120,4 +123,9 @@ public class Post {
 		this.pub = pub;
 	}
 
+	@Override
+	public String toString() {
+		return "Post [postId=" + postId + ", senderId=" + senderId + ", shareId=" + shareId + ", text=" + text
+				+ ", time=" + time + ", up=" + up + ", picId=" + picId + ", access=" + pub + "]";
+	}
 }

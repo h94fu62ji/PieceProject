@@ -22,7 +22,7 @@ public class Message {
 	private int chatroomId;
 
 	@Column(name = "sender_id")
-	private int sender;
+	private String sender;
 
 //	@Column(name = "reciever")
 //	private String reciever;
@@ -49,11 +49,11 @@ public class Message {
 		this.chatroomId = chatroomId;
 	}
 
-	public int getSender() {
+	public String getSender() {
 		return sender;
 	}
 
-	public void setSender(int sender) {
+	public void setSender(String sender) {
 		this.sender = sender;
 	}
 
@@ -86,7 +86,7 @@ public class Message {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Message(int chatroomId, int sender, String messageContent) {
+	public Message(int chatroomId, String sender, String messageContent) {
 		super();
 		this.chatroomId = chatroomId;
 		this.sender = sender;

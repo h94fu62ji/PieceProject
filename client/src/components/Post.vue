@@ -2,10 +2,31 @@
 //pinia
 import { mapActions, mapState } from 'pinia'
 import indexStore from '../stores/counter'
+
 export default {
   props: ['postId'],
   data() {
     return {
+
+
+
+      //單純判斷有沒有按過讚(回傳1是有，回傳0是沒按過讚)
+      likeYesOrNo: null,
+      //按讚貼文及收回讚的顯示顏色
+      isNiceClick: false,
+      //貼文資訊
+      postList: [],
+      //發文者的資訊
+      userInfoList: [],
+      //發文者名字
+      userName: "",
+      //發文者Id
+      userId: null,
+      //貼文內容
+      text: "",
+      //傳入按讚人Req
+      likePostUserInfo: { "PostId": null, "UserId": null },
+
       userImg: null,
       postImg: null,
       text: '正在載入中...',

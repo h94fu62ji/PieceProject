@@ -9,10 +9,9 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.piece.entity.User;
-import com.piece.entity.UserId;
 
 @Repository
-public interface UserDao extends JpaRepository<User, UserId> {
+public interface UserDao extends JpaRepository<User, String> {
 	//=======================================================
 	User findByAccount(String account);
 //

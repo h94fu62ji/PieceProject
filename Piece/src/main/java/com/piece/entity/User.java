@@ -1,24 +1,16 @@
 package com.piece.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "user_info")
-
-@IdClass(value=UserId.class)
-
 public class User {
-
-	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "user_id")
-	private int id;
 
 	@Id
 	@Column(name = "account")
@@ -28,7 +20,7 @@ public class User {
 	private String pwd;
 
 	@Column(name = "create_date")
-	private LocalDateTime createDate;
+	private LocalDate createDate;
 
 	@Column(name = "account_state")
 	private Boolean accountState;
@@ -50,7 +42,7 @@ public class User {
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(String account, String pwd, LocalDateTime createDate, Boolean accountState, Boolean adminState) {
+	public User(String account, String pwd, LocalDate createDate, Boolean accountState, Boolean adminState) {
 		super();
 		this.account = account;
 		this.pwd = pwd;
@@ -59,13 +51,6 @@ public class User {
 		this.adminState = adminState;
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public String getAccount() {
 		return account;
@@ -83,11 +68,11 @@ public class User {
 		this.pwd = pwd;
 	}
 
-	public LocalDateTime getCreateDate() {
+	public LocalDate getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(LocalDateTime createDate) {
+	public void setCreateDate(LocalDate createDate) {
 		this.createDate = createDate;
 	}
 

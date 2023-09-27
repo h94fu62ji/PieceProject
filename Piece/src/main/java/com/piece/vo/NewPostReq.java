@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class NewPostReq {
 	@JsonProperty("id")
-	private int sender_id;
+	private String senderId;
 	private String text;
 	@JsonProperty("img")
 	private String pic64;
@@ -15,20 +15,20 @@ public class NewPostReq {
 		// TODO Auto-generated constructor stub
 	}
 
-	public NewPostReq(int sender_id, String text, String pic64, boolean pub) {
+	public NewPostReq(String senderId, String text, String pic64, boolean pub) {
 		super();
-		this.sender_id = sender_id;
+		this.senderId = senderId;
 		this.text = text;
 		this.pic64 = pic64;
 		this.pub = pub;
 	}
 
-	public int getSender_id() {
-		return sender_id;
+	public String getSenderId() {
+		return senderId;
 	}
 
-	public void setSender_id(int sender_id) {
-		this.sender_id = sender_id;
+	public void setSenderId(String senderId) {
+		this.senderId = senderId;
 	}
 
 	public String getText() {

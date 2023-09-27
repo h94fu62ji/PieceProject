@@ -11,8 +11,8 @@ import javax.persistence.Table;
 @Table(name = "user_data")
 public class UserData {
 	@Id
-	@Column(name = "user_id")
-	private int userId;
+	@Column(name = "account")
+	private String account;
 	@Column(name = "user_name")
 	private String userName;
 	@Column(name = "birthday")
@@ -31,10 +31,10 @@ public class UserData {
 		// TODO Auto-generated constructor stub
 	}
 
-	public UserData(int userId, String userName, LocalDate birthday, String address, String introduce, int picId,
+	public UserData(String account, String userName, LocalDate birthday, String address, String introduce, int picId,
 			String sex) {
 		super();
-		this.userId = userId;
+		this.account = account;
 		this.userName = userName;
 		this.birthday = birthday;
 		this.address = address;
@@ -43,12 +43,18 @@ public class UserData {
 		this.sex = sex;
 	}
 
-	public int getUserId() {
-		return userId;
+	public UserData(String account, String userName) {
+		super();
+		this.account = account;
+		this.userName = userName;
 	}
 
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public String getUserId() {
+		return account;
+	}
+
+	public void setUserId(String userId) {
+		this.account = userId;
 	}
 
 	public String getUserName() {

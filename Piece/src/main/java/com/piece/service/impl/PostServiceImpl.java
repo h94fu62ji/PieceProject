@@ -39,12 +39,12 @@ public class PostServiceImpl implements PostService {
 	private UserDataDao userDataDao;
 
 	@Override
-	public NewPostRes newPost(int senderId, String text, String pic64, boolean pub) { // 新增貼文
-		if (senderId == 0 || !StringUtils.hasText(text) || !StringUtils.hasText(pic64)) {
+	public NewPostRes newPost(String senderId, String text, String pic64, boolean pub) { // 新增貼文
+		if (!StringUtils.hasText(senderId) || !StringUtils.hasText(text) || !StringUtils.hasText(pic64)) {
 			return new NewPostRes(RtnCode.DATA_ERROR.getCode(), RtnCode.DATA_ERROR.getMessage());
 		}
 		// 存檔位置
-		String address = "C:/Users/minic/OneDrive/Desktop/PieceProject/Piece/img";
+		String address = "C:/Users/minic/OneDrive/Desktop/PieceProject/Piece/img/";
 		// 新增至資料庫 取得自動增長ID
 		Pic res = picDao.save(new Pic(address));
 		// 更新資料庫
@@ -58,7 +58,7 @@ public class PostServiceImpl implements PostService {
 			return new NewPostRes(RtnCode.DATA_ERROR.getCode(), RtnCode.DATA_ERROR.getMessage());
 		}
 		System.out.println("新增成功");
-		return new NewPostRes(RtnCode.SUCCESSFUL.getCode(), RtnCode.SUCCESSFUL.getMessage());
+		return new NewPostRes(RtnCode.SUCCESSFUL.getCode(), RtnCode.SUCCESSFUL.getMessage(),res.getPicId());
 	}
 
 	private boolean saveImg(String base64ImageAll, int pic_id, String picAdd) { // 儲存圖片至本地
@@ -124,8 +124,8 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public GetPostListRes getPostList(int userId) {
-		if (userId == 0) {
+	public GetPostListRes getPostList(String userId) {
+		if (!StringUtils.hasText(userId)) {
 			return new GetPostListRes(RtnCode.DATA_ERROR.getCode(), RtnCode.DATA_ERROR.getMessage(), null);
 		}
 		List<String> res = postDao.getPostList();
@@ -133,8 +133,8 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public GetUserDataRes getUserData(int userId) {
-		if (userId == 0) {
+	public GetUserDataRes getUserData(String userId) {
+		if (!StringUtils.hasText(userId)) {
 			return new GetUserDataRes(RtnCode.DATA_ERROR.getCode(), RtnCode.DATA_ERROR.getMessage(), null);
 		}
 		Optional<UserData> res = userDataDao.findById(userId);
@@ -142,8 +142,8 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public GetTrackRes getTrack(int userId) {
-		if (userId == 0) {
+	public GetTrackRes getTrack(String userId) {
+		if (!StringUtils.hasText(userId)) {
 			return new GetTrackRes(RtnCode.DATA_ERROR.getCode(), RtnCode.DATA_ERROR.getMessage());
 		}
 		int track = userDataDao.getTrackCount(userId);

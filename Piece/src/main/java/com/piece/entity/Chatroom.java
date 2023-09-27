@@ -14,10 +14,10 @@ public class Chatroom {
 	private int chatroomId;
 
 	@Column(name = "user_1")
-	private int user1;
+	private String user1;
 
 	@Column(name = "user_2")
-	private int user2;
+	private String user2;
 
 	@Column(name = "user_1_read")
 	private int user1Read;
@@ -33,19 +33,19 @@ public class Chatroom {
 		this.chatroomId = chatroomId;
 	}
 
-	public int getUser1() {
+	public String getUser1() {
 		return user1;
 	}
 
-	public void setUser1(int user1) {
+	public void setUser1(String user1) {
 		this.user1 = user1;
 	}
 
-	public int getUser2() {
+	public String getUser2() {
 		return user2;
 	}
 
-	public void setUser2(int user2) {
+	public void setUser2(String user2) {
 		this.user2 = user2;
 	}
 
@@ -70,7 +70,7 @@ public class Chatroom {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Chatroom(int chatroomId, int user1, int user2, int user1Read, int user2Read) {
+	public Chatroom(int chatroomId, String user1, String user2, int user1Read, int user2Read) {
 		super();
 		this.chatroomId = chatroomId;
 		this.user1 = user1;

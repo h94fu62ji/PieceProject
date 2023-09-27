@@ -1,6 +1,10 @@
 <script>
 import axios from 'axios';
 
+//pinia
+import { mapActions, mapState } from 'pinia'
+import indexStore from '../stores/counter'
+
 export default {
 
     name: "Login",
@@ -13,10 +17,23 @@ export default {
         }
 
     },
+    mounted() {
+        if (this.login) {
+            console.log("轉跳頁面")
+            this.$router.push("/");
+        }
+    },
+    computed: {
+        // 參數 資料庫 要取用的 state / getters
+        ...mapState(indexStore, ['URL', 'login']),
+    },
+
     methods: {
+        // 參數 資料庫 要取用的 actions(methods)
+        ...mapActions(indexStore, ['changeUser']),
         getData() {
             axios
-                .post('http://localhost:8080/test01', this.user)
+                .post(this.URL + 'test01', this.user)
                 .then((res) => {
                     console.log(res.data)
                     if (res.status == 200) {
@@ -25,7 +42,8 @@ export default {
                             localStorage.setItem('account', this.user.account);
                             localStorage.setItem('pwd', this.user.pwd);
                             alert('登入成功!');
-                            this.$router.push({ name: "user" });
+                            this.changeUser(this.user.account)
+                            this.$router.push("/");
                             console.log(res)
 
                         } else {
@@ -79,7 +97,7 @@ export default {
                 <div prop="username">
                     <input
                         class="focus:outline-[#90a073]   w-[500px] h-[40px] rounded-[5px] shadow-[inset_0px_1px_1px_rgba(0,0,0,0.3)] pl-[6px] "
-                        type="text" placeholder=" 輸入帳號" v-model="user.account" v-on:keyup="keymonitor">
+                        type="text" placeholder=" 輸入帳號" v-model="user.account" v-on:keyup.enter="getData">
                 </div>
                 <p class=" flex text-[#909090] text-[1px]  ml-[420px] mt-1">輸入帳號</p>
             </div>
@@ -89,7 +107,7 @@ export default {
                 <div prop="password">
                     <input
                         class=" focus:outline-[#90a073] w-[500px] h-[40px] rounded-[5px] shadow-[inset_0px_1px_1px_rgba(0,0,0,0.3)] pl-[6px] "
-                        type="password" placeholder="輸入密碼" v-model="user.password" v-on:keyup="keymonitor">
+                        type="password" placeholder="輸入密碼" v-model="user.pwd" v-on:keyup.enter="getData">
 
                 </div>
 

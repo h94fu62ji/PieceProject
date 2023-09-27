@@ -7,7 +7,7 @@ export default defineStore("postStore",{
   state:() => ({
     URL:'http://localhost:8080/',
     postIdList: [],
-    user:10000001,
+    user: null,
     postView: false,
     newPostView: false,
     login: false,
@@ -35,9 +35,16 @@ export default defineStore("postStore",{
     rePostIdList(){
       this.postIdList = []
     },
-    // changeId(id) {
-    //   this.postId = id
-    // }
+    changeUser(id) {
+      this.user = id
+      this.login = true
+    },
+    signOut(){ 
+      this.login = false
+      localStorage.removeItem("account")
+      localStorage.removeItem("pwd")
+
+    },
 
   }
 });

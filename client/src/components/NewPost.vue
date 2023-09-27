@@ -11,6 +11,7 @@ export default {
             isImg: false,
         }
     },
+    inject: ['reload'],
     computed: {
         // 參數 資料庫 要取用的 state / getters
         ...mapState(indexStore, ['URL', 'user']),
@@ -50,6 +51,7 @@ export default {
                 .then(res => res.json()) // 回傳資料轉成可讀取
                 .then(data => {
                     console.log(data);
+                    this.pushListToFirst(data.postId)
                 })
                 .catch(error => {
                     console.error("Error:", error);
@@ -68,6 +70,8 @@ export default {
             }
             this.closeNewPost()
             this.updateNewPost()
+            this.reload()
+            alert('新增成功')
         }
     }
 }
@@ -82,7 +86,7 @@ export default {
                 <div class="w-full h-6">
                     <p v-show="isText" class="text-sm pl-2 pt-1 text-red-500 ">請輸入內文</p>
                 </div>
-                <textarea class="w-full h-[300px] rounded-2xl   "
+                <textarea class="w-full h-[300px] rounded-2xl p-2"
                     style="display: block; resize: none; outline: none; border : 0;" v-model="text"></textarea>
                 <div class="w-full h-6">
                     <p v-show="isImg" class="text-sm pl-2 pt-1 text-red-500">請上傳圖片</p>

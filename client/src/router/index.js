@@ -7,18 +7,21 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: () => import('../views/HomeView.vue'),
+      meta: { requiresAuth: true },
       props:true,
     },
     {
       path: '/chat/:currentChatroomId',
       name: 'ChatHome',
       component: () => import('../views/ChatView.vue'),
+      meta: { requiresAuth: true },
       props:true,
     },  
     {
       path: '/login',
       name: 'login',
       component: () => import('../views/LogInView.vue'),
+      meta: { isLogin : true },
     },
     {
       path: '/signup',

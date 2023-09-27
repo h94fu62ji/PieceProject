@@ -17,12 +17,12 @@ public interface PostDao extends JpaRepository<Post, Integer> {
 	@Modifying
 	@Transactional
 	@Query(value = "INSERT INTO piece_data.post(sender_id,text,pic_id,public) VALUE (:senderId,:text,:picId,:pub);", nativeQuery = true)
-	public int newPost(@Param("senderId") int senderId, @Param("text") String text, @Param("picId") int picId,
+	public int newPost(@Param("senderId") String senderId, @Param("text") String text, @Param("picId") int picId,
 			@Param("pub") boolean pub);
 
 	
 	@Query(value = "SELECT new com.piece.vo.GetPostByIdVo(p.senderId, p.picId, u.picId, p.text, p.up, p.time) "
-			+ " FROM Post p JOIN UserData u ON p.senderId = u.userId WHERE p.postId = :postId")
+			+ " FROM Post p JOIN UserData u ON p.senderId = u.account WHERE p.postId = :postId")
 	public GetPostByIdVo getPost(@Param("postId") int postId);
 	
 	

@@ -1,6 +1,7 @@
 package com.piece.controller;
 
 import javax.servlet.http.HttpSession;
+import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -9,31 +10,34 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.piece.constants.RtnCode;
 import com.piece.entity.User;
+import com.piece.service.ifs.EmailService;
 import com.piece.service.ifs.UserService;
 import com.piece.vo.UserReq;
 import com.piece.vo.UserRes;
 
+@CrossOrigin
 @RestController
 public class UserController {
 
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private EmailService emailService;
 	
 
 
 	// Vue接口測試用
-	@CrossOrigin(origins = "http://localhost:5173")
 	@GetMapping(value = "piece")
 	public String piece() {
 		return "登入...";
 	}
 
 	// Vue街口測試用
-	@CrossOrigin(origins = "http://localhost:5173")
 	@GetMapping(value = "api")
 	public String api() {
 		return "Api登入...";
@@ -46,7 +50,6 @@ public class UserController {
 	
 	
 	//註冊用
-	@CrossOrigin(origins = "http://localhost:5173")
 	@PutMapping(value ="addInfo")
 	public UserRes addInfo(@RequestBody UserReq req) {
 		UserRes res = userService.addInfo(new User(req.getAccount(),req.getPwd()));
@@ -54,7 +57,6 @@ public class UserController {
 	}
 	
 	//登入用
-	@CrossOrigin(origins = "http://localhost:5173")
 	@PostMapping(value = "test01")
 	public UserRes findByAccountAndPwd(@RequestBody UserReq req, HttpSession httpSession) {
 	    String account = (String) httpSession.getAttribute("account");
@@ -72,10 +74,19 @@ public class UserController {
 	        httpSession.setMaxInactiveInterval(60);
 	    return new UserRes(RtnCode.SUCCESSFUL.getCode(),RtnCode.SUCCESSFUL.getMessage(),req.getAccount(),req.getPwd());
 	}
+	
+	@PostMapping(value="email")
+	 public String sendEmailMessage(@RequestParam String mail) {
+	  this.emailService.sendMessage(
+	   mail,"恭喜","http://localhost:5173/piece/pwdnew"
+	 
+	  );
+	  return "5555";
+	 
+	 }
 
 
 
-//	@CrossOrigin(origins = "http://localhost:5173")
 //	@PostMapping(value="test01")
 //	public UserRes findByAccountAndPwd(@RequestBody UserReq req,HttpSession httpSession) {
 //	    String account=(String)httpSession.getAttribute("account");

@@ -6,7 +6,9 @@ import org.springframework.util.StringUtils;
 
 import com.piece.constants.RtnCode;
 import com.piece.entity.User;
+import com.piece.entity.UserData;
 import com.piece.repository.UserDao;
+import com.piece.repository.UserDataDao;
 import com.piece.service.ifs.UserService;
 import com.piece.vo.UserRes;
 
@@ -15,6 +17,8 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserDao userDao;
+	@Autowired
+	private UserDataDao userDataDao;
 
 //	@Override
 //	public UserRes addInfo(User user) {
@@ -47,7 +51,7 @@ public class UserServiceImpl implements UserService {
 		if (checkUser != null) {
 			return new UserRes(user, RtnCode.ACCOUNT_EXISTED.getCode(), RtnCode.ACCOUNT_EXISTED.getMessage());
 		}
-
+		userDataDao.save(new UserData(user.getAccount(),user.getAccount()));
 		userDao.save(user);
 		return new UserRes(user, RtnCode.SUCCESSFUL.getCode(), RtnCode.SUCCESSFUL.getMessage());
 	}

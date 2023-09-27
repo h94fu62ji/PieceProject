@@ -3,7 +3,7 @@ package com.piece.vo;
 import java.time.LocalDateTime;
 
 public class GetPostByIdVo {
-	private int userId;
+	private String senderId;
 	private int postImg;
 	private int userImg;
 	private String text;
@@ -15,9 +15,9 @@ public class GetPostByIdVo {
 		// TODO Auto-generated constructor stub
 	}
 
-	public GetPostByIdVo(int userId, int postImg, int userImg, String text, int up, LocalDateTime time) {
+	public GetPostByIdVo(String senderId, int postImg, int userImg, String text, int up, LocalDateTime time) {
 		super();
-		this.userId = userId;
+		this.senderId = senderId;
 		this.postImg = postImg;
 		this.userImg = userImg;
 		this.text = text;
@@ -25,12 +25,12 @@ public class GetPostByIdVo {
 		this.time = time;
 	}
 
-	public int getUserId() {
-		return userId;
+	public String getSenderId() {
+		return senderId;
 	}
 
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setSenderId(String senderId) {
+		this.senderId = senderId;
 	}
 
 	public int getPostImg() {

@@ -4,7 +4,7 @@ public class SetReadMsgIdReq {
 
 	private int chatroomId; 
 	
-	private int user;
+	private String user;
 	
 	private int lastReadMsgId;
 
@@ -16,11 +16,11 @@ public class SetReadMsgIdReq {
 		this.chatroomId = chatroomId;
 	}
 
-	public int getUser() {
+	public String getUser() {
 		return user;
 	}
 
-	public void setUser(int user) {
+	public void setUser(String user) {
 		this.user = user;
 	}
 
@@ -32,7 +32,7 @@ public class SetReadMsgIdReq {
 		this.lastReadMsgId = lastReadMsgId;
 	}
 
-	public SetReadMsgIdReq(int chatroomId, int user, int lastReadMsgId) {
+	public SetReadMsgIdReq(int chatroomId, String user, int lastReadMsgId) {
 		super();
 		this.chatroomId = chatroomId;
 		this.user = user;

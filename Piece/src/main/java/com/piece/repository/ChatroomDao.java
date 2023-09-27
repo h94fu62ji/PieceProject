@@ -13,7 +13,7 @@ public interface ChatroomDao extends JpaRepository<Chatroom, Integer>{
 	@Query(value = "select c from Chatroom as c "
 			+ " where user1 = :currentUserId "
 			+ " or user2 = :currentUserId")
-	public List<Chatroom> findByUser1OrUser2(@Param("currentUserId") int currentUserId);
+	public List<Chatroom> findByUser1OrUser2(@Param("currentUserId") String currentUserId);
 	
 
 	public Chatroom findByChatroomId(int chatId);

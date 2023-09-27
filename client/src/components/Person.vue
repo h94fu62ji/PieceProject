@@ -27,6 +27,7 @@ export default {
     mounted() {
         this.checkUser()
     },
+
     computed: {
         // 參數 資料庫 要取用的 state / getters
         ...mapState(indexStore, ['URL']),

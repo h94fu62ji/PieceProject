@@ -24,11 +24,13 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	// mysql connector
 	implementation 'mysql:mysql-connector-java:8.0.31'
+	implementation 'org.springframework.boot:spring-boot-starter-mail:2.7.16'
 
 	// swagger 3.0
 	// implementation 'io.springfox:springfox-boot-starter:3.0.0'
 	// springdoc openapi
 	// implementation 'org.springdoc:springdoc-openapi-ui:1.7.0'
+
 	
 	
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'

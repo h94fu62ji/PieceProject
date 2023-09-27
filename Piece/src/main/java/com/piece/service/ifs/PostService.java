@@ -8,17 +8,19 @@ import com.piece.vo.GetUserDataRes;
 import com.piece.vo.NewPostRes;
 
 public interface PostService {
-	public NewPostRes newPost(int senderId, String text, String picId, boolean pub);
+	public NewPostRes newPost(String senderId, String text, String picId, boolean pub);
 
 	public GetPostRes getPostById(int postId);
 
 	public GetImgRes getImgById(int imgId);
 
-	public GetPostListRes getPostList(int userId);
+	public GetPostListRes getPostList(String userId);
 	
-	public GetUserDataRes getUserData(int userId);
+	public GetUserDataRes getUserData(String userId);
 	
-	public GetTrackRes getTrack(int userId);
+	public GetTrackRes getTrack(String userId);
+
+
 
 
 }
