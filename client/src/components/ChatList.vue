@@ -108,7 +108,9 @@ export default {
     <div class="w-400 fixed h-screen bgc">
         <div class="w-80 mx-auto">
             <div class="my-4">
-                <div class="w-16 h-16 bg-white " @click="closeChatList"></div>
+                <div class="w-16 h-16 cursor-pointer" @click="closeChatList">
+                    <img class="w-16 h-16" src="../../public/menu.png">
+                </div>
             </div>
             <RouterLink @click.stop :to="`/chat/${msg.chatroomId}`" v-for="msg in lastMsgList"
                 class="flex bg-gray-100 py-2 rounded-2xl items-center mb-4 cursor-pointer">

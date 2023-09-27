@@ -133,6 +133,8 @@ export default {
             this.$router.push("set")
             this.$parent.homeBarClose()
         },
+
+
     }
 }
 </script>
@@ -146,8 +148,12 @@ export default {
             <div class="ml-10">
                 <!-- 上方功能區 -->
                 <div class="w-80 h-16 my-6 flex justify-between">
-                    <div class="w-16 h-16 bg-white cursor-pointer" @click="openHomeBar"></div>
-                    <div class="w-16 h-16 bg-white cursor-pointer" @click="goSet"></div>
+                    <div class="w-16 h-16 cursor-pointer" @click="openHomeBar">
+                        <img class="w-16 h-16" src="../../public/menu.png">
+                    </div>
+                    <div class="w-16 h-16 cursor-pointer" @click="goSet">
+                        <img class="w-16 h-16" src="../../public/set.png">
+                    </div>
                 </div>
                 <!-- 大頭貼 -->
                 <div class="bg-white w-80 my-6 rounded-3xl overflow-hidden">
@@ -172,9 +178,8 @@ export default {
                 </div>
                 <!-- 追蹤按紐 -->
                 <div v-if="haveTrack">
-                    <button v-if="condition" type="button"
-                        class="w-40 h-16 ml-20 my-6 bg-green-700 block rounded-2xl text-white text-2xl">追
-                        蹤</button>
+                    <button v-if="condition未定義" type="button"
+                        class="w-40 h-16 ml-20 my-6 bg-green-700 block rounded-2xl text-white text-2xl">追 蹤</button>
                     <button v-else type="button"
                         class="w-40 h-16 ml-20 my-6 bg-green-700 block rounded-2xl text-white text-2xl">已 追 蹤</button>
                 </div>
@@ -182,7 +187,7 @@ export default {
                 <!-- 基本資料區 -->
                 <div class="my-4">
                     <div v-for="(item, index) in Userdata" class="bg-white w-80 h-16  my-2 rounded-2xl flex">
-                        <div class="bg-yellow-200 w-32 h-16 rounded-2xl ">
+                        <div class="bg-[#D9D9D9] w-32 h-16 rounded-2xl ">
                             <h3 class="text-2xl font-bold text-center pt-4 ">{{ index }}</h3>
                         </div>
                         <div class="flex-grow h-16 rounded-2xl">

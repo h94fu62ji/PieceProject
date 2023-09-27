@@ -26,8 +26,12 @@ export default {
 
         homeBar() {
             this.$parent.switchHomeBar()
-            this.rePostIdList()
-            this.$router.push(`/?userId=${this.user}`)
+
+            if (this.user != this.$route.query.userId) {
+                this.rePostIdList()
+                this.$router.push(`?userId=${this.user}`)
+            }
+
 
         },
         searchBar() {
