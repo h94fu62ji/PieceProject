@@ -32,7 +32,7 @@ router.beforeEach((to, from, next) => {
                 next()
             } else {
                 indexStore().signOut()
-                next("login")
+                next("/login")
             }
         });
 

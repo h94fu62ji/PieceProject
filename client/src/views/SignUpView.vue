@@ -31,7 +31,7 @@ export default {
                     if (res.status == 200) {
                         if (res.data.code == '200') {
                             alert('註冊成功!');
-                            this.$router.push({ name: "login" });
+                            this.$router.push("/login");
 
                         } else {
                             alert('註冊失敗');

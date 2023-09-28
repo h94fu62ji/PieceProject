@@ -130,7 +130,7 @@ export default {
             }
         },
         goSet() {
-            this.$router.push("set")
+            this.$router.push("/set")
             this.$parent.homeBarClose()
         },
 

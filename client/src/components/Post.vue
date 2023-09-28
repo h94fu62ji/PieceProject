@@ -161,7 +161,7 @@ export default {
       this.switchPost()
       if (this.userId != this.$route.query.userId) {
         this.rePostIdList()
-        this.$router.push(`?userId=${this.userId}`)
+        this.$router.push(`/?userId=${this.userId}`)
       }
     },
 

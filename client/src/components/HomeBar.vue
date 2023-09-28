@@ -29,7 +29,7 @@ export default {
 
             if (this.user != this.$route.query.userId) {
                 this.rePostIdList()
-                this.$router.push(`?userId=${this.user}`)
+                this.$router.push(`/?userId=${this.user}`)
             }
 
 
@@ -44,7 +44,7 @@ export default {
             this.$parent.switchNewsBar()
         },
         goSet() {
-            this.$router.push("set")
+            this.$router.push("/set")
             this.$parent.homeBarClose()
         },
 
