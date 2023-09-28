@@ -1,7 +1,6 @@
 package com.piece.controller;
 
 import javax.servlet.http.HttpSession;
-import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -31,32 +30,32 @@ public class UserController {
 	
 
 
-	// Vue±µ¤f´ú¸Õ¥Î
+	// Vueæ¥å£æ¸¬è©¦ç”¨
 	@GetMapping(value = "piece")
 	public String piece() {
-		return "µn¤J...";
+		return "ç™»å…¥...";
 	}
 
-	// Vueµó¤f´ú¸Õ¥Î
+	// Vueè¡—å£æ¸¬è©¦ç”¨
 	@GetMapping(value = "api")
 	public String api() {
-		return "Apiµn¤J...";
+		return "Apiç™»å…¥...";
 	}
 
 	@GetMapping(value = "signup")
 	public String getSinupPage() {
-		return "µù¥U¦¨¥\";
+		return "è¨»å†ŠæˆåŠŸ";
 	}
 	
 	
-	//µù¥U¥Î
+	//è¨»å†Šç”¨
 	@PutMapping(value ="addInfo")
 	public UserRes addInfo(@RequestBody UserReq req) {
 		UserRes res = userService.addInfo(new User(req.getAccount(),req.getPwd()));
 		return res;
 	}
 	
-	//µn¤J¥Î
+	//ç™»å…¥ç”¨
 	@PostMapping(value = "test01")
 	public UserRes findByAccountAndPwd(@RequestBody UserReq req, HttpSession httpSession) {
 	    String account = (String) httpSession.getAttribute("account");
@@ -78,7 +77,7 @@ public class UserController {
 	@PostMapping(value="email")
 	 public String sendEmailMessage(@RequestParam String mail) {
 	  this.emailService.sendMessage(
-	   mail,"®¥³ß","http://localhost:5173/piece/pwdnew"
+	   mail,"æ­å–œ","http://localhost:5173/piece/pwdnew"
 	 
 	  );
 	  return "5555";

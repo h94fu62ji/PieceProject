@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.piece.entity.UserData;
-import com.piece.repository.UserDataDao;
 import com.piece.service.ifs.PostService;
 import com.piece.vo.GetImgRes;
 import com.piece.vo.GetPostListRes;
@@ -26,42 +25,42 @@ public class PieceController {
 	@Autowired
 	private PostService postService;
 
-	// ·s¼W¶K¤å
+	// æ–°è²¼æ–‡
 	@PostMapping(value = "/new_post")
 	public NewPostRes newPost(@RequestBody NewPostReq req) {
 		return postService.newPost(req.getSenderId(), req.getText(), req.getPic64(), req.isPub());
 	}
 
-	// ¨ú±o¶K¤å
+	// å–å¾—è²¼æ–‡
 	@PostMapping(value = "/get_post_by_post_id")
 	public GetPostRes getPostById(@RequestBody IdReq req) {
 		return postService.getPostById(req.getId());
 	}
 
-	// ¨ú±o¹Ï¤ù
+	// å–å¾—åœ–ç‰‡
 	@PostMapping(value = "/get_pic_by_img_id")
 	public GetImgRes getImgById(@RequestBody IdReq req) {
 		return postService.getImgById(req.getId());
 	}
 
-	// ¨ú±o¶K¤å¦Cªí
+	// å–å¾—è²¼æ–‡åˆ—è¡¨
 	@PostMapping(value = "/get_post_list")
 	public GetPostListRes getPostList(@RequestBody UserIdReq req) {
 		return postService.getPostList(req.getUserId());
 	}
 
-	// ¨ú±o¨Ï¥ÎªÌ¸ê®Æ
+	// å–å¾—Userè³‡æ–™
 	@PostMapping(value = "/get_user_data")
 	public GetUserDataRes getUserData(@RequestBody UserIdReq req) {
 		return postService.getUserData(req.getUserId());
 	}
 
-	// ¨ú±o°lÂÜ¤H¼Æ
+	// å–å¾—è¿½è¹¤
 	@PostMapping(value = "/get_track")
 	public GetTrackRes getTrack(@RequestBody UserIdReq req) {
 		return postService.getTrack(req.getUserId());
 	}
-
+	// æ›´æ–°Userè³‡æ–™
 	@PostMapping(value = "/update_user_data")
 	public UpdataRes updataUser(@RequestBody UserData req) {
 		return postService.updataUserData(req.getAccount(), req.getUserName(), req.getBirthday(), req.getAddress(),
