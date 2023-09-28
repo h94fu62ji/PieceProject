@@ -124,6 +124,7 @@ export default {
     <div class="mx-auto my-3 w-[430px] overflow-hidden">
       <!-- 圖片區 -->
       <img :src="postImg" class="rounded-2xl w-[430px]">
+      <!-- <video :src="postImg" class="rounded-2xl w-[430px]"></video> -->
       <!-- 資訊區 -->
       <div class="mx-auto flex justify-center pt-2 w-[430px]">
         <!-- 頭貼 -->
