@@ -18,7 +18,7 @@ export default {
                 sex: "載入中...",
 
             },
-
+            isSelf: false,
             haveTrack: false,
             track: 0,
             fans: 0,
@@ -57,6 +57,7 @@ export default {
             })
                 .then(res => res.json()) // 回傳資料轉成可讀取
                 .then(data => {
+                    this.getTrack(userId)
                     this.getImgById(data.userData.picId)
                     this.userName = data.userData.userName
                     this.introduce = data.userData.introduce
@@ -120,12 +121,11 @@ export default {
         checkUser() {
             if (this.$route.query.userId == undefined) {
                 this.getUserDataByIdForUser(this.userId)
-                this.getTrack(this.userId)
             } else {
                 this.getUserDataByIdForUser(this.$route.query.userId)
-                this.getTrack(this.$route.query.userId)
                 if (this.$route.query.userId != this.userId) {
-                    this.haveTrack = true
+                    this.isSelf = true
+                    this.checkTrack(this.$route.query.userId, this.userId)
                 }
             }
         },
@@ -133,8 +133,90 @@ export default {
             this.$router.push("/set")
             this.$parent.homeBarClose()
         },
+        checkTrack(he, me) { // 檢查是否追蹤
+            const getById = {
+                "user": he,
+                "userId": me,
+            };
+            // console.log(JSON.stringify(getById))
+            fetch(this.URL + "check_track", { // 發送網址
+                method: "POST", // 請求型態
+                headers: { // 必要文件
+                    'Content-Type': 'application/json'
+                },
+                // 轉成JSON
+                body: JSON.stringify(getById) // 要傳送的資料
+            })
+                .then(res => res.json()) // 回傳資料轉成可讀取
+                .then(data => {
+                    this.haveTrack = data
+                })
+                .catch(error => {
+                    console.error("Error:", error)
+                });
+        },
 
+        newTrack(he, me) { // 新追蹤
+            const getById = {
+                "user": he,
+                "userId": me,
+            };
+            // console.log(JSON.stringify(getById))
+            fetch(this.URL + "new_track", { // 發送網址
+                method: "POST", // 請求型態
+                headers: { // 必要文件
+                    'Content-Type': 'application/json'
+                },
+                // 轉成JSON
+                body: JSON.stringify(getById) // 要傳送的資料
+            })
+                .then(res => res.json()) // 回傳資料轉成可讀取
+                .then(data => {
+                    // console.log(data)
+                    if (data.code == 200) {
+                        this.haveTrack = true
+                        this.fans += 1
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error)
+                });
+        },
 
+        delTrack(he, me) { // 退追蹤
+            const getById = {
+                "user": he,
+                "userId": me,
+            };
+            // console.log(JSON.stringify(getById))
+            fetch(this.URL + "del_track", { // 發送網址
+                method: "POST", // 請求型態
+                headers: { // 必要文件
+                    'Content-Type': 'application/json'
+                },
+                // 轉成JSON
+                body: JSON.stringify(getById) // 要傳送的資料
+            })
+                .then(res => res.json()) // 回傳資料轉成可讀取
+                .then(data => {
+                    // console.log(data)
+                    if (data.code == 200) {
+                        this.haveTrack = false
+                        this.fans -= 1
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error)
+                });
+        },
+
+        isTrack() {
+            if (this.haveTrack) {
+                this.delTrack(this.$route.query.userId, this.userId)
+            } else {
+                this.newTrack(this.$route.query.userId, this.userId)
+            }
+        },
     }
 }
 </script>
@@ -170,18 +252,20 @@ export default {
                 <!-- 追蹤模塊 -->
                 <div class="w-80  my-6 flex justify-around">
                     <div>
-                        <p class="text-xl font-bold text-white cursor-pointer">追蹤中 {{ track }}</p>
+                        <p class="text-xl font-bold text-white cursor-pointer">粉絲 {{ fans }}</p>
                     </div>
                     <div>
-                        <p class="text-xl font-bold text-white cursor-pointer">粉絲 {{ fans }}</p>
+                        <p class="text-xl font-bold text-white cursor-pointer">追蹤中 {{ track }}</p>
                     </div>
                 </div>
                 <!-- 追蹤按紐 -->
-                <div v-if="haveTrack">
-                    <button v-if="condition未定義" type="button"
-                        class="w-40 h-16 ml-20 my-6 bg-green-700 block rounded-2xl text-white text-2xl">追 蹤</button>
+                <div v-if="isSelf">
+                    <button v-if="haveTrack" type="button"
+                        class="w-40 h-16 ml-20 my-6 bg-green-300 block rounded-2xl text-white text-2xl" @click="isTrack">已 追
+                        蹤</button>
                     <button v-else type="button"
-                        class="w-40 h-16 ml-20 my-6 bg-green-700 block rounded-2xl text-white text-2xl">已 追 蹤</button>
+                        class="w-40 h-16 ml-20 my-6 bg-green-600 block rounded-2xl text-white text-2xl" @click="isTrack">追
+                        蹤</button>
                 </div>
 
                 <!-- 基本資料區 -->

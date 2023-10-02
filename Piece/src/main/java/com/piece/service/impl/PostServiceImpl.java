@@ -26,6 +26,7 @@ import com.piece.vo.GetPostRes;
 import com.piece.vo.GetTrackRes;
 import com.piece.vo.GetUserDataRes;
 import com.piece.vo.NewPostRes;
+import com.piece.vo.Res;
 import com.piece.vo.UpdataRes;
 
 @Service
@@ -39,6 +40,9 @@ public class PostServiceImpl implements PostService {
 
 	@Autowired
 	private UserDataDao userDataDao;
+
+//	@Autowired
+//	private TrackDao trackDao;
 
 	@Override
 	public NewPostRes newPost(String senderId, String text, String pic64, boolean pub) { // 新增貼文
@@ -117,7 +121,7 @@ public class PostServiceImpl implements PostService {
 					+ base64Image;
 			return new GetImgRes(RtnCode.SUCCESSFUL.getCode(), RtnCode.SUCCESSFUL.getMessage(), resString);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 			System.out.println(e);
 			return new GetImgRes(RtnCode.DATA_ERROR.getCode(), RtnCode.DATA_ERROR.getMessage(), null);
@@ -162,6 +166,29 @@ public class PostServiceImpl implements PostService {
 			return new UpdataRes(RtnCode.DATA_ERROR.getCode(), RtnCode.DATA_ERROR.getMessage());
 		}
 		return new UpdataRes(RtnCode.SUCCESSFUL.getCode(), RtnCode.SUCCESSFUL.getMessage());
+	}
+
+	@Override
+	public int checkTrack(String user, String userId) {
+		return userDataDao.checkTrack(user, userId);
+	}
+
+	@Override
+	public Res newTrack(String user, String userId) {
+		int res = userDataDao.newTrack(user, userId);
+		if (res == 0) {
+			return new Res(RtnCode.DATA_ERROR.getCode(), RtnCode.DATA_ERROR.getMessage());
+		}
+		return new Res(RtnCode.SUCCESSFUL.getCode(), RtnCode.SUCCESSFUL.getMessage());
+	}
+
+	@Override
+	public Res delTrack(String user, String userId) {
+		int res = userDataDao.delTrack(user, userId);
+		if (res == 0) {
+			return new Res(RtnCode.DATA_ERROR.getCode(), RtnCode.DATA_ERROR.getMessage());
+		}
+		return new Res(RtnCode.SUCCESSFUL.getCode(), RtnCode.SUCCESSFUL.getMessage());
 	}
 
 }

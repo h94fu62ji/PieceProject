@@ -8,6 +8,7 @@ import com.piece.vo.GetPostRes;
 import com.piece.vo.GetTrackRes;
 import com.piece.vo.GetUserDataRes;
 import com.piece.vo.NewPostRes;
+import com.piece.vo.Res;
 import com.piece.vo.UpdataRes;
 
 public interface PostService {
@@ -25,5 +26,11 @@ public interface PostService {
 
 	public UpdataRes updataUserData(String userId, String userName, LocalDate birthday, String address,
 			String introduce, String sex);
+
+	public int checkTrack(String user, String userId);
+
+	public Res newTrack(String user, String userId);
+
+	public Res delTrack(String user, String userId);
 
 }

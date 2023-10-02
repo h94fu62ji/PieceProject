@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.piece.entity.UserData;
 import com.piece.service.ifs.PostService;
+import com.piece.vo.CheckTrackReq;
 import com.piece.vo.GetImgRes;
 import com.piece.vo.GetPostListRes;
 import com.piece.vo.GetPostRes;
@@ -16,6 +17,7 @@ import com.piece.vo.GetUserDataRes;
 import com.piece.vo.IdReq;
 import com.piece.vo.NewPostReq;
 import com.piece.vo.NewPostRes;
+import com.piece.vo.Res;
 import com.piece.vo.UpdataRes;
 import com.piece.vo.UserIdReq;
 
@@ -60,10 +62,29 @@ public class PieceController {
 	public GetTrackRes getTrack(@RequestBody UserIdReq req) {
 		return postService.getTrack(req.getUserId());
 	}
+
 	// 更新User資料
 	@PostMapping(value = "/update_user_data")
 	public UpdataRes updataUser(@RequestBody UserData req) {
 		return postService.updataUserData(req.getAccount(), req.getUserName(), req.getBirthday(), req.getAddress(),
 				req.getIntroduce(), req.getSex());
+	}
+
+	// 確認追蹤
+	@PostMapping(value = "/check_track")
+	public int checkTrack(@RequestBody CheckTrackReq req) {
+		return postService.checkTrack(req.getUser(), req.getUserId());
+	}
+
+	// 新增追蹤
+	@PostMapping(value = "/new_track")
+	public Res newTrack(@RequestBody CheckTrackReq req) {
+		return postService.newTrack(req.getUser(), req.getUserId());
+	}
+
+	// 刪除追蹤
+	@PostMapping(value = "/del_track")
+	public Res delTrack(@RequestBody CheckTrackReq req) {
+		return postService.delTrack(req.getUser(), req.getUserId());
 	}
 }
